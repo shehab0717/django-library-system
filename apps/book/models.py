@@ -4,13 +4,6 @@ from apps.core.models import TimestampedModel
 from apps.book.const import BookStatus
 
 
-BOOK_STATUS_CHOICES = [
-    (BookStatus.AVAILABLE, "Available"),
-    (BookStatus.BORROWED, "Borrowed"),
-    (BookStatus.MAINTAINANCE, "Under Maintainance"),
-]
-
-
 class Book(TimestampedModel):
     isbn = models.IntegerField(primary_key=True)
     title = models.CharField(max_length=200)
@@ -27,11 +20,17 @@ class Book(TimestampedModel):
 
 
 class BookCopy(TimestampedModel):
+    class Status(models.TextChoices):
+        AVAILABLE = BookStatus.AVAILABLE, "Available"
+        BORROWED = BookStatus.BORROWED, "Borrowed"
+        MAINTAINANCE = BookStatus.MAINTAINANCE, "Under Maintainance"
+
     copy_number = models.IntegerField("copy number")
-    status = models.CharField(max_length=20, choices=BOOK_STATUS_CHOICES)
+    status = models.CharField(max_length=20, choices=Status.choices)
     book = models.ForeignKey(Book, on_delete=models.CASCADE, db_column="book_isbn")
 
     class Meta:
+        verbose_name_plural = "Book copies"
         constraints = [
             models.UniqueConstraint(
                 fields=("copy_number", "book"),
