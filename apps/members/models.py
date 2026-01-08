@@ -20,8 +20,11 @@ class Member(TimestampedModel):
     )
 
     def __str__(self):
-        pass
+        return self.name
 
 
 class Membership(TimestampedModel):
     name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
