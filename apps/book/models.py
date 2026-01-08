@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import ValidationError
 from apps.core.models import TimestampedModel
 from apps.book.const import BookStatus
 
@@ -14,7 +15,7 @@ class Book(TimestampedModel):
     isbn = models.IntegerField(primary_key=True)
     title = models.CharField(max_length=200)
     pub_year = models.IntegerField("publish year")
-    genres = models.ManyToManyField("Genre")
+    genres = models.ManyToManyField("Genre", related_name="books")
 
     @property
     def is_available(self):
@@ -42,7 +43,20 @@ class BookCopy(TimestampedModel):
 
 
 class Genre(TimestampedModel):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=20)
+
+    def delete(self, *args, **kwargs):
+        for book in self.books.all():
+            if book.genres.count() == 1:
+                raise ValidationError(
+                    f'Cannot delete genre "{self.name}" because '
+                    f'"{book.title}" would have no genres.'
+                )
+        super().delete(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
 
     def __str__(self):
         return self.name
