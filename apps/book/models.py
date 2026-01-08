@@ -16,6 +16,7 @@ class Book(TimestampedModel):
     title = models.CharField(max_length=200)
     pub_year = models.IntegerField("publish year")
     genres = models.ManyToManyField("Genre", related_name="books")
+    authors = models.ManyToManyField("Author", related_name="books")
 
     @property
     def is_available(self):
@@ -58,5 +59,12 @@ class Genre(TimestampedModel):
         return self.name
 
 
+class Author(TimestampedModel):
+    name = models.CharField(max_length=50)
+    bio = models.CharField(max_length=400)
+    nationality = models.CharField(max_length=50)
+    birth_date = models.DateField()
+    death_date = models.DateField(null=True, blank=True)
+
     def __str__(self):
-        return self.name
+        return f"{self.name} - {self.nationality}"
