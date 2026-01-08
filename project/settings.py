@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     "apps.core.apps.CoreConfig",
     "apps.book.apps.BookConfig",
     "apps.members.apps.MembersConfig",
+    "apps.circulation.apps.CirculationConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
