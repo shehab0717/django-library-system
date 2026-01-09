@@ -1,6 +1,6 @@
 from django.db import models
 from apps.core.models import TimestampedModel
-from apps.members.const import MemberStatus
+from .const import MemberStatus
 
 
 class Member(TimestampedModel):
