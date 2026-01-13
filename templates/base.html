@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      {% block title %}
+        My Website
+      {% endblock %}
+    </title>
+    {% load static %}
+    {% comment %} <link rel="stylesheet" href="{% static 'css/base.css' %}" /> {% endcomment %}
+  </head>
+  <body>
+    <header>
+      <!-- Navigation bar and other global header content -->
+      {% comment %} <nav>...</nav> {% endcomment %}
+    </header>
+
+    <main>
+      <!-- Placeholder for specific page content -->
+      {% block content %}
+
+      {% endblock %}
+    </main>
+
+    <footer>
+      <!-- Footer content (e.g., copyright info) -->
+      <p>&copy; 2025 My Website</p>
+    </footer>
+
+    {% block scripts %}
+      <!-- Placeholder for page-specific JavaScript files -->
+    {% endblock %}
+  </body>
+</html>

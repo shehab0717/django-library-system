@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% load django_bootstrap5 %}
+
+{% block title %}
+  Index
+{% endblock %}
+
+{% block content %}
+  <ul>
+    {% for book in books %}
+      <li>
+        <a href="{% url 'book:detail' book.isbn %}">{{ book }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
