@@ -1,1 +1,19 @@
-<h2>{{ book.title }}</h2>
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ book.title }}
+{% endblock %}
+
+{% block content %}
+  <h2>{{ book.title }}</h2>
+  Publish year: {{ book.pub_year }} <br />
+  Genres:{% for genre in book.genres.all %}
+    {{ genre }},
+  {% endfor %} <br />
+  Authors:{% for author in book.authors.all %}
+    {{ author }},
+  {% endfor %} <br />
+  Copies:{% for copy in book.copies.all %}
+    {{ copy }},
+  {% endfor %}
+{% endblock %}
