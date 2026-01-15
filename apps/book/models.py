@@ -27,7 +27,9 @@ class BookCopy(TimestampedModel):
 
     copy_number = models.IntegerField("copy number")
     status = models.CharField(max_length=20, choices=Status.choices)
-    book = models.ForeignKey(Book, on_delete=models.CASCADE, db_column="book_isbn")
+    book = models.ForeignKey(
+        Book, on_delete=models.CASCADE, related_name="copies", db_column="book_isbn"
+    )
 
     class Meta:
         verbose_name_plural = "Book copies"
