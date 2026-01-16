@@ -30,7 +30,7 @@
         <th>ISBN</th>
         <th>Title</th>
         <th>Genres</th>
-        <th>Actions</th>
+        <th>Authors</th>
       </tr>
     </thead>
     <tbody>
@@ -38,20 +38,27 @@
         <tr>
           <td>{{ book.isbn }}</td>
           <td>
-            <a href="{% url 'book:detail' book.isbn %}" class="link">{{ book.title }}</a>
+            <div class="d-flex justify-content-between me-3">
+              <a href="{% url 'book:detail' book.isbn %}" class="link me-3">{{ book.title }} <i class="fas fa-external-link-alt"></i></a>
+            </div>
           </td>
           <td>
             <ul class="list-unstyled">
               {% for genre in book.genres.all %}
                 <li class="">
-                  <a href="">{{ genre }}</a>
+                  <a class="link" href="">{{ genre }}</a>
                 </li>
               {% endfor %}
             </ul>
           </td>
           <td>
-            <a href="{% url 'book:update' book.isbn %} " class="btn btn-outline-primary">Update</a>
-            <a href="{% url 'book:add' %} " class="text-danger link ms-2">Delete</a>
+            <ul class="list-unstyled">
+              {% for author in book.authors.all %}
+                <li class="">
+                  <a class="link" href="">{{ author }}</a>
+                </li>
+              {% endfor %}
+            </ul>
           </td>
         </tr>
       {% endfor %}
