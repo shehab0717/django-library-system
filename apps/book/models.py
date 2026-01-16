@@ -2,11 +2,12 @@ from django.db import models
 from django.forms import ValidationError
 from apps.core.models import TimestampedModel
 from apps.book.const import BookStatus
+from django.core.validators import MinLengthValidator
 
 
 class Book(TimestampedModel):
     isbn = models.IntegerField(primary_key=True)
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200, validators=[MinLengthValidator(5)])
     pub_year = models.IntegerField("publish year")
     genres = models.ManyToManyField("Genre", related_name="books")
     authors = models.ManyToManyField("Author", related_name="books")
@@ -45,7 +46,7 @@ class BookCopy(TimestampedModel):
 
 
 class Genre(TimestampedModel):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20, validators=[MinLengthValidator(3)])
 
     def delete(self, *args, **kwargs):
         for book in self.books.all():
@@ -57,13 +58,13 @@ class Genre(TimestampedModel):
         super().delete(*args, **kwargs)
 
     def __str__(self):
-        return self.name
+        return self.name.capitalize()
 
 
 class Author(TimestampedModel):
-    name = models.CharField(max_length=50)
-    bio = models.CharField(max_length=400)
-    nationality = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, validators=[MinLengthValidator(5)])
+    bio = models.CharField(max_length=400, validators=[MinLengthValidator(20)])
+    nationality = models.CharField(max_length=50, validators=[MinLengthValidator(5)])
     birth_date = models.DateField()
     death_date = models.DateField(null=True, blank=True)
 

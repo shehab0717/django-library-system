@@ -6,3 +6,7 @@ class AddBookForm(forms.ModelForm):
     class Meta:
         model = models.Book
         fields = "__all__"
+
+
+class UpdateBookForm(AddBookForm):
+    pass

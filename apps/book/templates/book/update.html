@@ -1,22 +1,22 @@
 {% extends 'base.html' %}
+
 {% load crispy_forms_tags %}
 
 {% block title %}
-  Add New Book
+  {{ form.title.value }} - Update
 {% endblock %}
 
 {% block content %}
-  <form action="{% url 'book:add' %}" method="POST">
+  <form action="{% url 'book:update' form.isbn.value %}" method="POST">
     {{ form.non_field_errors }}
     {% csrf_token %}
     {{ form|crispy }}
     <div class="d-flex">
-      <input type="submit" value="Save" class="btn btn-primary" />
-      <button type="button" onclick="goBack()" class="btn text-danger">Cancel</button>
+      <input type="submit" value="Save" class="btn btn-primary me-3" />
+      <a href="{% url 'book:index' %}" class="text-danger link">Cancel</a>
     </div>
   </form>
 {% endblock %}
-
 {% block scripts %}
   <script>
     function goBack() {
