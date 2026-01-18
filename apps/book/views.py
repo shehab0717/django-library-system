@@ -21,8 +21,8 @@ def list(request):
     )
 
 
-def get_book(request, book_id):
-    book = get_object_or_404(Book, pk=book_id)
+def get_book(request, book_isbn):
+    book = get_object_or_404(Book, pk=book_isbn)
     return render(request, "book/detail.html", context={"book": book})
 
 
