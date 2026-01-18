@@ -39,7 +39,7 @@
     </tbody>
   </table>
   <div class="d-flex mt-5">
-    <a href="{% url 'book:update' book.isbn %}" class="btn btn-primary">Update</a>
+    <a href="{% url 'book:update' book.isbn %}?next={% url 'book:detail' book.isbn %}" class="btn btn-primary">Update</a>
     <a href="#" class="btn text-danger">Delete</a>
   </div>
 {% endblock %}

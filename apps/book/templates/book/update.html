@@ -7,20 +7,13 @@
 {% endblock %}
 
 {% block content %}
-  <form action="{% url 'book:update' form.isbn.value %}" method="POST">
+  <form action="{% url 'book:update' form.isbn.value %}?next={{ next }}" method="POST">
     {{ form.non_field_errors }}
     {% csrf_token %}
     {{ form|crispy }}
     <div class="d-flex">
       <input type="submit" value="Save" class="btn btn-primary me-3" />
-      <a href="{% url 'book:index' %}" class="text-danger link">Cancel</a>
+      <a href="{{ next }}" class="text-danger link">Cancel</a>
     </div>
   </form>
-{% endblock %}
-{% block scripts %}
-  <script>
-    function goBack() {
-      window.history.back()
-    }
-  </script>
 {% endblock %}

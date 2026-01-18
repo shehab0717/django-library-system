@@ -41,17 +41,18 @@ def add_book(request):
 
 
 def update_book(request, book_isbn: int):
+    next = request.GET.get("next", reverse("book:index"))
     if request.method == "GET":
         book = get_object_or_404(Book, pk=book_isbn)
         form = UpdateBookForm(instance=book)
-        return render(request, "book/update.html", {"form": form})
+        return render(request, "book/update.html", {"form": form, "next": next})
 
     elif request.method == "POST":
         book = get_object_or_404(Book, pk=book_isbn)
         form = UpdateBookForm(request.POST, instance=book)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse("book:index"))
+            return HttpResponseRedirect(next)
 
         return render(request, "book/update.html", {"form": form})
 
