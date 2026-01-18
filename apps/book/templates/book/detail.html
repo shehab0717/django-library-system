@@ -6,7 +6,7 @@
 
 {% block content %}
   <h2 class="mb-5">{{ book.title }}</h2>
-  <table class="table">
+  <table class="table table-striped">
     <tbody>
       <tr>
         <td class="fw-bold">Publish year:</td>
@@ -28,16 +28,33 @@
           {% endfor %}
         </td>
       </tr>
-      <tr>
-        <td class="fw-bold">Book Copies:</td>
-        <td>
-          {% for copy in book.copies.all %}
-            {{ copy }},
-          {% endfor %}
-        </td>
-      </tr>
     </tbody>
   </table>
+  <h4 class="mt-5">Book Copies</h4>
+  {% if book.copies.count %}
+    <table class="table table-striped">
+      <thead>
+        <th>Copy Number</th>
+        <th>Available</th>
+      </thead>
+      <tbody>
+        {% for copy in book.copies.all %}
+          <tr>
+            <td>{{ copy.copy_number }}</td>
+            <td>
+              {% if copy.is_available %}
+                Yes
+              {% else %}
+                No
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No copies for this book!</p>
+  {% endif %}
   <div class="d-flex mt-5">
     <a href="{% url 'book:update' book.isbn %}?next={% url 'book:detail' book.isbn %}" class="btn btn-primary">Update</a>
     <a href="#" class="btn text-danger">Delete</a>

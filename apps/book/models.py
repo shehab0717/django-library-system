@@ -32,6 +32,9 @@ class BookCopy(TimestampedModel):
         Book, on_delete=models.CASCADE, related_name="copies", db_column="book_isbn"
     )
 
+    def is_available(self):
+        return self.status == BookStatus.AVAILABLE
+
     class Meta:
         verbose_name_plural = "Book copies"
         constraints = [
