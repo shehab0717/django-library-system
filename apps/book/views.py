@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.views import View
 from .models import Book, Author
 from django.urls import reverse
-from .froms import AddBookForm, UpdateBookForm, AddBookCopyForm
+from .froms import AddBookForm, UpdateBookForm, AddBookCopyForm, AddAuthorForm
 from django.http import HttpResponseRedirect
 from django.db import IntegrityError
 from django.db.models import Q
@@ -109,6 +109,20 @@ class AuthorListView(View):
         query = Q(name__icontains=q) | Q(bio__icontains=q)
         authors = Author.objects.filter(query).all()
         return render(request, "book/author_index.html", {"authors": authors, "q": q})
+
+
+class AuthorCreateView(View):
+    def get(self, request):
+        form = AddAuthorForm()
+        return render(request, "book/author_add.html", {"form": form})
+
+    def post(self, request):
+        form = AddAuthorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse("book:author_index"))
+
+        return render(request, "book/author_add.html", {"form": form})
 
 
 # class BookListView(ListView):
