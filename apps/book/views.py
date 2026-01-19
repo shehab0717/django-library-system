@@ -95,6 +95,13 @@ class UpdateBookView(View):
         return render(request, "book/book_update.html", {"form": form})
 
 
+class DeleteBookView(View):
+    def post(self, request, book_isbn):
+        book = get_object_or_404(Book, pk=book_isbn)
+        book.delete()
+        return HttpResponseRedirect(reverse("book:book_index"))
+
+
 # class BookListView(ListView):
 #     model = Book
 #     context_object_name = "books"
