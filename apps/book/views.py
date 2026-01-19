@@ -4,6 +4,7 @@ from .models import Book
 from django.urls import reverse
 from .froms import AddBookForm, UpdateBookForm, AddBookCopyForm
 from django.http import HttpResponseBadRequest, HttpResponseRedirect
+from django.db import IntegrityError
 
 
 def list(request):
@@ -31,12 +32,22 @@ def get_book(request, book_isbn):
             context={"book": book, "book_copy_form": book_copy_form},
         )
     elif request.method == "POST":
-        form = AddBookCopyForm(request.POST)
-        if form.is_valid():
+        book_copy_form = AddBookCopyForm(request.POST)
+        if book_copy_form.is_valid():
             print("Form is valid")
-            book_copy = form.save(commit=False)
+            book_copy = book_copy_form.save(commit=False)
             book_copy.book = book
-            book_copy.save()
+            try:
+                book_copy.save()
+            except IntegrityError:
+                book_copy_form.add_error(
+                    field="copy_number", error="This book copy already exists!"
+                )
+                return render(
+                    request,
+                    "book/book_detail.html",
+                    context={"book": book, "book_copy_form": book_copy_form},
+                )
             return HttpResponseRedirect(reverse("book:detail", args=[book_isbn]))
     return HttpResponseBadRequest()
 
