@@ -125,6 +125,14 @@ class AuthorCreateView(View):
         return render(request, "book/author_add.html", {"form": form})
 
 
+class AuthorDetailview(View):
+    def get(self, request, author_id):
+        author = get_object_or_404(
+            Author.objects.prefetch_related("books"), pk=author_id
+        )
+        return render(request, "book/author_detail.html", {"author": author})
+
+
 # class BookListView(ListView):
 #     model = Book
 #     context_object_name = "books"

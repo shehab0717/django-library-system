@@ -39,7 +39,7 @@
           <td>{{ author.id }}</td>
           <td>
             <div class="d-flex justify-content-between me-3">
-              <a href="#" class="link me-3">{{ author.name }} <i class="fas fa-external-link-alt"></i></a>
+              <a href="{% url 'book:author_detail' author.id %}" class="link me-3">{{ author.name }} <i class="fas fa-external-link-alt"></i></a>
             </div>
           </td>
           <td style="max-width: 250px;">
