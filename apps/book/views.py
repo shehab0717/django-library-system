@@ -16,7 +16,7 @@ def list(request):
         )
     return render(
         request,
-        "book/index.html",
+        "book/book_index.html",
         {"books": books_queryset.order_by("isbn").all(), "search_text": search_text},
     )
 
@@ -27,7 +27,7 @@ def get_book(request, book_isbn):
         book_copy_form = AddBookCopyForm()
         return render(
             request,
-            "book/detail.html",
+            "book/book_detail.html",
             context={"book": book, "book_copy_form": book_copy_form},
         )
     elif request.method == "POST":
@@ -44,13 +44,13 @@ def get_book(request, book_isbn):
 def add_book(request):
     if request.method == "GET":
         form = AddBookForm()
-        return render(request, "book/add.html", {"form": form})
+        return render(request, "book/book_add.html", {"form": form})
     if request.method == "POST":
         form = AddBookForm(request.POST)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse("book:index"))
-        return render(request, "book/add.html", {"form": form})
+        return render(request, "book/book_add.html", {"form": form})
 
     return HttpResponseBadRequest()
 
@@ -60,7 +60,7 @@ def update_book(request, book_isbn: int):
     if request.method == "GET":
         book = get_object_or_404(Book, pk=book_isbn)
         form = UpdateBookForm(instance=book)
-        return render(request, "book/update.html", {"form": form, "next": next})
+        return render(request, "book/book_update.html", {"form": form, "next": next})
 
     elif request.method == "POST":
         book = get_object_or_404(Book, pk=book_isbn)
@@ -69,6 +69,6 @@ def update_book(request, book_isbn: int):
             form.save()
             return HttpResponseRedirect(next)
 
-        return render(request, "book/update.html", {"form": form})
+        return render(request, "book/book_update.html", {"form": form})
 
     return HttpResponseBadRequest()
