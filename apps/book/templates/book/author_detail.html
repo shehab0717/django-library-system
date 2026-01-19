@@ -5,43 +5,45 @@
 {% endblock %}
 {% load crispy_forms_tags %}
 {% block content %}
-  <h2 class="mb-5">{{ author.name }}</h2>
-  <div class="row">
-    <div class="col-3 col-md-2 col-lg-1">
-      <p class="fw-bold">Bio:</p>
-    </div>
-    <div class="col-9 col-md-10 col-lg-11">
-      <p>{{ author.bio }}</p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-3 col-md-2 col-lg-1">
-      <p class="fw-bold">Books:</p>
-    </div>
-    <div class="col-9 col-md-10 col-lg-11">
-      <ul class="list-unstyled">
-        {% for book in author.books.all %}
-          <li>{{ book }}</li>
-        {% endfor %}
-      </ul>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-3 col-md-2 col-lg-1">
-      <p class="fw-bold">Birthdate:</p>
-    </div>
-    <div class="col-9 col-md-10 col-lg-11">
-      <p>{{ author.birth_date }}</p>
-    </div>
-  </div>
-  {% if author.death_date %}
+  <div class="container-lg mb-5 mt-5">
+    <h2 class="mb-5">{{ author.name }}</h2>
     <div class="row">
       <div class="col-3 col-md-2 col-lg-1">
-        <p class="fw-bold">Death date:</p>
+        <p class="fw-bold">Bio:</p>
       </div>
       <div class="col-9 col-md-10 col-lg-11">
-        <p>{{ author.death_date }}</p>
+        <p>{{ author.bio }}</p>
       </div>
     </div>
-  {% endif %}
+    <div class="row">
+      <div class="col-3 col-md-2 col-lg-1">
+        <p class="fw-bold">Books:</p>
+      </div>
+      <div class="col-9 col-md-10 col-lg-11">
+        <ul class="list-unstyled">
+          {% for book in author.books.all %}
+            <li>{{ book }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-3 col-md-2 col-lg-1">
+        <p class="fw-bold">Birthdate:</p>
+      </div>
+      <div class="col-9 col-md-10 col-lg-11">
+        <p>{{ author.birth_date }}</p>
+      </div>
+    </div>
+    {% if author.death_date %}
+      <div class="row">
+        <div class="col-3 col-md-2 col-lg-1">
+          <p class="fw-bold">Death date:</p>
+        </div>
+        <div class="col-9 col-md-10 col-lg-11">
+          <p>{{ author.death_date }}</p>
+        </div>
+      </div>
+    {% endif %}
+  </div>
 {% endblock %}

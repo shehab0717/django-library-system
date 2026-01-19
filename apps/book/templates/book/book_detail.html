@@ -5,97 +5,103 @@
 {% endblock %}
 {% load crispy_forms_tags %}
 {% block content %}
-  <h2 class="mb-5">{{ book.title }}</h2>
-  <table class="table table-striped">
-    <tbody>
-      <tr>
-        <td class="fw-bold">Publish year:</td>
-        <td>{{ book.pub_year }}</td>
-      </tr>
-      <tr>
-        <td class="fw-bold">Genres:</td>
-        <td>
-          {% for genre in book.genres.all %}
-            {{ genre }},
-          {% endfor %}
-        </td>
-      </tr>
-      <tr>
-        <td class="fw-bold">Authors:</td>
-        <td>
-          {% for author in book.authors.all %}
-            {{ author }},
-          {% endfor %}
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <hr class="mt-5" />
-  <h4 class="mt-5 mb-4">Book Copies</h4>
-  <div class="row">
-    <div class="col-8 border border-dark rounded me-2 p-4">
-      {% if book.copies.count %}
-        <table class="table table-striped">
-          <thead>
-            <th>Copy Number</th>
-            <th>Status</th>
-          </thead>
-          <tbody>
-            {% for copy in book.copies.all %}
-              <tr class="fw-bold">
-                <td>{{ copy.copy_number }}</td>
-                <td class="{% if copy.is_available %}
+  <div class="container-lg mb-5 mt-5">
+    <h2 class="mb-5">{{ book.title }}</h2>
+    <table class="table table-striped">
+      <tbody>
+        <tr>
+          <td class="fw-bold">Publish year:</td>
+          <td>{{ book.pub_year }}</td>
+        </tr>
+        <tr>
+          <td class="fw-bold">Genres:</td>
+          <td>
+            {% for genre in book.genres.all %}
+              {{ genre }},
+            {% endfor %}
+          </td>
+        </tr>
+        <tr>
+          <td class="fw-bold">Authors:</td>
+          <td>
+            {% for author in book.authors.all %}
+              {{ author }},
+            {% endfor %}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <hr class="mt-5" />
+    <h4 class="mt-5 mb-4">Book Copies</h4>
+    <div class="row">
+      <div class="col-8 border border-dark rounded me-2 p-4">
+        {% if book.copies.count %}
+          <table class="table table-striped">
+            <thead>
+              <th>Copy Number</th>
+              <th>Status</th>
+            </thead>
+            <tbody>
+              {% for copy in book.copies.all %}
+                <tr class="fw-bold">
+                  <td>{{ copy.copy_number }}</td>
+                  <td class="{% if copy.is_available %}
+                      
                     
                     text-success
 
-                  {% else %}
+
+                    {% else %}
+                      
                     
                      text-danger
 
-                  {% endif %}">{{ copy.status|capfirst }}</td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      {% else %}
-        <div class="bg-warning-subtle w-100 h-100 rounded fs-4 fw-bold text-warning-emphasis d-flex align-items-center justify-content-center">
-          <p>No copies for this book!</p>
-        </div>
-      {% endif %}
+
+                    {% endif %}">{{ copy.status|capfirst }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <div class="bg-warning-subtle w-100 h-100 rounded fs-4 fw-bold text-warning-emphasis d-flex align-items-center justify-content-center">
+            <p>No copies for this book!</p>
+          </div>
+        {% endif %}
+      </div>
+      <div class="col p-4 rounded border border-dark">
+        <h4 class="mb-3 text-info-emphasis">Add Book Copy</h4>
+        <form action="{% url 'book:book_detail' book.isbn %}" method="POST">
+          {% csrf_token %}
+          {{ book_copy_form.non_field_errors }}
+          {{ book_copy_form|crispy }}
+          <input type="submit" value="Add" class="btn btn-primary" />
+        </form>
+      </div>
     </div>
-    <div class="col p-4 rounded border border-dark">
-      <h4 class="mb-3 text-info-emphasis">Add Book Copy</h4>
-      <form action="{% url 'book:book_detail' book.isbn %}" method="POST">
-        {% csrf_token %}
-        {{ book_copy_form.non_field_errors }}
-        {{ book_copy_form|crispy }}
-        <input type="submit" value="Add" class="btn btn-primary" />
-      </form>
+    <div class="d-flex mt-5">
+      <a href="{% url 'book:book_update' book.isbn %}?next={% url 'book:book_detail' book.isbn %}" class="btn btn-primary">Update</a>
+      <button type="button" class="btn text-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
     </div>
-  </div>
-  <div class="d-flex mt-5">
-    <a href="{% url 'book:book_update' book.isbn %}?next={% url 'book:book_detail' book.isbn %}" class="btn btn-primary">Update</a>
-    <button type="button" class="btn text-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
-  </div>
-  <!-- Modal -->
-  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Delete</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body text-center">
-          <p>
-            Are you sure you want to delete this book? <br /> this action can't be reverted!
-          </p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <form action="{% url 'book:book_delete' book.isbn %}" method="POST">
-            {% csrf_token %}
-            <button type="submit" class="btn btn-danger">Delete</button>
-          </form>
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Delete</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body text-center">
+            <p>
+              Are you sure you want to delete this book? <br /> this action can't be reverted!
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <form action="{% url 'book:book_delete' book.isbn %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>

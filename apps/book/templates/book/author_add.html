@@ -6,15 +6,17 @@
 {% endblock %}
 
 {% block content %}
-  <form action="{% url 'book:author_add' %}" method="POST">
-    {{ form.non_field_errors }}
-    {% csrf_token %}
-    {{ form|crispy }}
-    <div class="d-flex">
-      <input type="submit" value="Save" class="btn btn-primary" />
-      <button type="button" onclick="goBack()" class="btn text-danger">Cancel</button>
-    </div>
-  </form>
+  <div class="container-lg mb-5 mt-5">
+    <form action="{% url 'book:author_add' %}" method="POST">
+      {{ form.non_field_errors }}
+      {% csrf_token %}
+      {{ form|crispy }}
+      <div class="d-flex">
+        <input type="submit" value="Save" class="btn btn-primary" />
+        <button type="button" onclick="goBack()" class="btn text-danger">Cancel</button>
+      </div>
+    </form>
+  </div>
 {% endblock %}
 
 {% block scripts %}

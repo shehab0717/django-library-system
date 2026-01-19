@@ -7,13 +7,15 @@
 {% endblock %}
 
 {% block content %}
-  <form action="{% url 'book:book_update' form.isbn.value %}?next={{ next }}" method="POST">
-    {{ form.non_field_errors }}
-    {% csrf_token %}
-    {{ form|crispy }}
-    <div class="d-flex">
-      <input type="submit" value="Save" class="btn btn-primary me-3" />
-      <a href="{{ next }}" class="text-danger link">Cancel</a>
-    </div>
-  </form>
+  <div class="container-lg mb-5 mt-5">
+    <form action="{% url 'book:book_update' form.isbn.value %}?next={{ next }}" method="POST">
+      {{ form.non_field_errors }}
+      {% csrf_token %}
+      {{ form|crispy }}
+      <div class="d-flex">
+        <input type="submit" value="Save" class="btn btn-primary me-3" />
+        <a href="{{ next }}" class="text-danger link">Cancel</a>
+      </div>
+    </form>
+  </div>
 {% endblock %}

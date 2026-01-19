@@ -14,7 +14,6 @@
 
 {% block content %}
   <div class="container-fluid">
-    {{ applied_filters }}
     <div class="row">
       <!-- Filter -->
       <div class="col-12 col-md-4 col-lg-2 pt-5 pb-5">
@@ -70,7 +69,7 @@
                   <ul class="list-unstyled">
                     {% for genre in book.genres.all %}
                       <li class="">
-                        <a class="link" href="">{{ genre }}</a>
+                        {{ genre }}
                       </li>
                     {% endfor %}
                   </ul>
@@ -79,7 +78,7 @@
                   <ul class="list-unstyled">
                     {% for author in book.authors.all %}
                       <li class="">
-                        <a class="link" href="">{{ author }}</a>
+                        <a class="link" href="{% url 'book:author_detail' author.id %}">{{ author }}</a>
                       </li>
                     {% endfor %}
                   </ul>
