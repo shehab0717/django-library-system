@@ -10,3 +10,10 @@ class AddBookForm(forms.ModelForm):
 
 class UpdateBookForm(AddBookForm):
     pass
+
+
+class AddBookCopyForm(forms.ModelForm):
+    class Meta:
+        model = models.BookCopy
+        fields = "__all__"
+        exclude = ["book"]

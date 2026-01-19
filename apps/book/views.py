@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
-from .models import Book, Author, Genre
+from .models import Book
 from django.urls import reverse
-from .froms import AddBookForm, UpdateBookForm
+from .froms import AddBookForm, UpdateBookForm, AddBookCopyForm
 from django.http import HttpResponseBadRequest, HttpResponseRedirect
 
 
@@ -23,7 +23,22 @@ def list(request):
 
 def get_book(request, book_isbn):
     book = get_object_or_404(Book, pk=book_isbn)
-    return render(request, "book/detail.html", context={"book": book})
+    if request.method == "GET":
+        book_copy_form = AddBookCopyForm()
+        return render(
+            request,
+            "book/detail.html",
+            context={"book": book, "book_copy_form": book_copy_form},
+        )
+    elif request.method == "POST":
+        form = AddBookCopyForm(request.POST)
+        if form.is_valid():
+            print("Form is valid")
+            book_copy = form.save(commit=False)
+            book_copy.book = book
+            book_copy.save()
+            return HttpResponseRedirect(reverse("book:detail", args=[book_isbn]))
+    return HttpResponseBadRequest()
 
 
 def add_book(request):
