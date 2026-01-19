@@ -17,7 +17,7 @@
     <div>
       <form action="{% url 'book:index' %}">
         <div class="form-group d-flex">
-          <input type="text" class="form-control me-3" name="book_name" placeholder="Book title.." value="{{ search_text }}" />
+          <input type="text" class="form-control me-3" name="q" placeholder="Book title.." value="{{ q }}" />
           <input type="submit" value="Search" class="btn btn-success" />
         </div>
       </form>
