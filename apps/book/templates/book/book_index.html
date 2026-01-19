@@ -15,14 +15,14 @@
 {% block content %}
   <div class="d-flex justify-content-between mb-3">
     <div>
-      <form action="{% url 'book:index' %}">
+      <form action="{% url 'book:book_index' %}">
         <div class="form-group d-flex">
           <input type="text" class="form-control me-3" name="q" placeholder="Book title.." value="{{ q }}" />
           <input type="submit" value="Search" class="btn btn-success" />
         </div>
       </form>
     </div>
-    <a href="{% url 'book:add' %} " class="btn btn-primary">New Book</a>
+    <a href="{% url 'book:book_add' %} " class="btn btn-primary">New Book</a>
   </div>
   <table class="table table-striped">
     <thead class="thead-dark">
@@ -39,7 +39,7 @@
           <td>{{ book.isbn }}</td>
           <td>
             <div class="d-flex justify-content-between me-3">
-              <a href="{% url 'book:detail' book.isbn %}" class="link me-3">{{ book.title }} <i class="fas fa-external-link-alt"></i></a>
+              <a href="{% url 'book:book_detail' book.isbn %}" class="link me-3">{{ book.title }} <i class="fas fa-external-link-alt"></i></a>
             </div>
           </td>
           <td>

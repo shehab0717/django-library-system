@@ -63,7 +63,7 @@
     </div>
     <div class="col p-4 rounded border border-dark">
       <h4 class="mb-3 text-info-emphasis">Add Book Copy</h4>
-      <form action="{% url 'book:detail' book.isbn %}" method="POST">
+      <form action="{% url 'book:book_detail' book.isbn %}" method="POST">
         {% csrf_token %}
         {{ book_copy_form.non_field_errors }}
         {{ book_copy_form|crispy }}
