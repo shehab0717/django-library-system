@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.views import View
-from .models import Book
+from .models import Book, Author
 from django.urls import reverse
 from .froms import AddBookForm, UpdateBookForm, AddBookCopyForm
 from django.http import HttpResponseRedirect
 from django.db import IntegrityError
+from django.db.models import Q
 
 
 class BookListView(View):
@@ -100,6 +101,14 @@ class DeleteBookView(View):
         book = get_object_or_404(Book, pk=book_isbn)
         book.delete()
         return HttpResponseRedirect(reverse("book:book_index"))
+
+
+class AuthorListView(View):
+    def get(self, request):
+        q = request.GET.get("q", "")
+        query = Q(name__icontains=q) | Q(bio__icontains=q)
+        authors = Author.objects.filter(query).all()
+        return render(request, "book/author_index.html", {"authors": authors, "q": q})
 
 
 # class BookListView(ListView):

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Authors
+{% endblock %}
+
+{% block style %}
+  <style>
+    .link {
+      text-decoration: none;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <div class="d-flex justify-content-between mb-3">
+    <div>
+      <form action="{% url 'book:author_index' %}">
+        <div class="form-group d-flex">
+          <input type="text" class="form-control me-3" name="q" placeholder="name, bio.." value="{{ q }}" />
+          <input type="submit" value="Search" class="btn btn-success" />
+        </div>
+      </form>
+    </div>
+    <a href="" class="btn btn-primary">New Author</a>
+  </div>
+  <table class="table table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Bio</th>
+        <th>Nationality</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for author in authors %}
+        <tr>
+          <td>{{ author.id }}</td>
+          <td>
+            <div class="d-flex justify-content-between me-3">
+              <a href="#" class="link me-3">{{ author.name }} <i class="fas fa-external-link-alt"></i></a>
+            </div>
+          </td>
+          <td style="max-width: 250px;">
+            <div class="text-truncate">{{ author.bio }}</div>
+          </td>
+          <td>{{ author.nationality }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
