@@ -17,7 +17,7 @@ def list(request):
     return render(
         request,
         "book/index.html",
-        {"books": books_queryset.all(), "search_text": search_text},
+        {"books": books_queryset.order_by("isbn").all(), "search_text": search_text},
     )
 
 
