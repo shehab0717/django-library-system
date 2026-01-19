@@ -53,7 +53,7 @@ class BookDetailView(View):
                     "book/book_detail.html",
                     context={"book": book, "book_copy_form": book_copy_form},
                 )
-            return HttpResponseRedirect(reverse("book:detail", args=[book_isbn]))
+            return HttpResponseRedirect(reverse("book:book_detail", args=[book_isbn]))
 
 
 class AddBookView(View):
@@ -65,13 +65,13 @@ class AddBookView(View):
         form = AddBookForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse("book:index"))
+            return HttpResponseRedirect(reverse("book:book_index"))
         return render(request, "book/book_add.html", {"form": form})
 
 
 class UpdateBookView(View):
     def get_next_url(self, request):
-        return request.GET.get("next", reverse("book:index"))
+        return request.GET.get("next", reverse("book:book_index"))
 
     def get(self, request, book_isbn):
         book = get_object_or_404(Book, pk=book_isbn)
