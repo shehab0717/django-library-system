@@ -13,55 +13,82 @@
 {% endblock %}
 
 {% block content %}
-  <div class="d-flex justify-content-between mb-3">
-    <div>
-      <form action="{% url 'book:book_index' %}">
-        <div class="form-group d-flex">
-          <input type="text" class="form-control me-3" name="q" placeholder="Book title.." value="{{ q }}" />
-          <input type="submit" value="Search" class="btn btn-success" />
+  <div class="container-fluid">
+    {{ applied_filters }}
+    <div class="row">
+      <!-- Filter -->
+      <div class="col-12 col-md-4 col-lg-2 pt-5 pb-5">
+        <h4>Filter</h4>
+        <form action="{% url 'book:book_index' %}" method="GET">
+          <input type="text" name="q" id="q" value="{{ q }}" hidden />
+          <p class="mt-5">Genre:</p>
+          {% for genre in filters.genres %}
+            <input type="checkbox" name="genre" id="{{ genre.name }}" value="{{ genre.id }}" {% if genre.selected %}checked{% endif %} />
+            <label for="{{ genre.name }}">{{ genre }}</label> <br />
+          {% endfor %}
+          <p class="mt-5">Author:</p>
+          {% for author in filters.authors %}
+            <input type="checkbox" name="author" id="{{ author.name }}" value="{{ author.id }}" {% if author.selected %}checked{% endif %} />
+            <label for="{{ author.name }}">{{ author }}</label> <br />
+          {% endfor %}
+          <input type="submit" value="Apply" class="btn btn-success w-100 mt-5" />
+        </form>
+      </div>
+      <div class="col-12 col-md-8 col-lg-10 pt-5 pb-5">
+        <!-- Search -->
+        <div class="d-flex justify-content-between mb-3">
+          <div>
+            <form action="{% url 'book:book_index' %}">
+              <div class="form-group d-flex">
+                <input type="text" class="form-control me-3" name="q" placeholder="Book title.." value="{{ q }}" />
+                <input type="submit" value="Search" class="btn btn-success" />
+              </div>
+            </form>
+          </div>
+          <a href="{% url 'book:book_add' %} " class="btn btn-primary">New Book</a>
         </div>
-      </form>
+        <!-- Book List -->
+        <table class="table table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th>ISBN</th>
+              <th>Title</th>
+              <th>Genres</th>
+              <th>Authors</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for book in books %}
+              <tr>
+                <td>{{ book.isbn }}</td>
+                <td>
+                  <div class="d-flex justify-content-between me-3">
+                    <a href="{% url 'book:book_detail' book.isbn %}" class="link me-3">{{ book.title }} <i class="fas fa-external-link-alt"></i></a>
+                  </div>
+                </td>
+                <td>
+                  <ul class="list-unstyled">
+                    {% for genre in book.genres.all %}
+                      <li class="">
+                        <a class="link" href="">{{ genre }}</a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </td>
+                <td>
+                  <ul class="list-unstyled">
+                    {% for author in book.authors.all %}
+                      <li class="">
+                        <a class="link" href="">{{ author }}</a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
-    <a href="{% url 'book:book_add' %} " class="btn btn-primary">New Book</a>
   </div>
-  <table class="table table-striped">
-    <thead class="thead-dark">
-      <tr>
-        <th>ISBN</th>
-        <th>Title</th>
-        <th>Genres</th>
-        <th>Authors</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for book in books %}
-        <tr>
-          <td>{{ book.isbn }}</td>
-          <td>
-            <div class="d-flex justify-content-between me-3">
-              <a href="{% url 'book:book_detail' book.isbn %}" class="link me-3">{{ book.title }} <i class="fas fa-external-link-alt"></i></a>
-            </div>
-          </td>
-          <td>
-            <ul class="list-unstyled">
-              {% for genre in book.genres.all %}
-                <li class="">
-                  <a class="link" href="">{{ genre }}</a>
-                </li>
-              {% endfor %}
-            </ul>
-          </td>
-          <td>
-            <ul class="list-unstyled">
-              {% for author in book.authors.all %}
-                <li class="">
-                  <a class="link" href="">{{ author }}</a>
-                </li>
-              {% endfor %}
-            </ul>
-          </td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
 {% endblock %}

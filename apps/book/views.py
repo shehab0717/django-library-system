@@ -12,18 +12,43 @@ from django.db.models import Q
 class BookListView(View):
     def get(self, request):
         q = request.GET.get("q", "")
-        books_queryset = Book.objects.prefetch_related()
-        if len(q):
-            # search
-            books_queryset = Book.objects.prefetch_related().filter(title__icontains=q)
+        all_books = Book.objects.filter(title__icontains=q).all()
+        filters = self._get_filters(all_books)
+        f = self._genre_filter & self._author_filter
+        filtered_books = (
+            all_books.filter(f).distinct().select_related().order_by("isbn").all()
+        )
         return render(
             request,
             "book/book_index.html",
-            {
-                "books": books_queryset.order_by("isbn").all(),
-                "q": q,
-            },
+            {"books": filtered_books, "q": q, "filters": filters},
         )
+
+    @property
+    def _genre_filter(self):
+        selected_genres = self.request.GET.getlist("genre", [])
+        if len(selected_genres) > 0:
+            return Q(genres__id__in=selected_genres)
+        return Q()
+
+    @property
+    def _author_filter(self):
+        selected_authors = self.request.GET.getlist("author", [])
+        if len(selected_authors) > 0:
+            return Q(authors__id__in=selected_authors)
+        return Q()
+
+    def _get_filters(self, books: list[Book]):
+        selected_genres = self.request.GET.getlist("genre", [])
+        selected_authors = self.request.GET.getlist("author", [])
+        authors_set = set([author for book in books for author in book.authors.all()])
+        genres_set = set([genre for book in books for genre in book.genres.all()])
+        for g in genres_set:
+            g.selected = str(g.id) in selected_genres
+        for a in authors_set:
+            a.selected = str(a.id) in selected_authors
+
+        return {"genres": genres_set, "authors": authors_set}
 
 
 class BookDetailView(View):
