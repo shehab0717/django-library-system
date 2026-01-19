@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.views import View
-from .models import Book, Author
+from .models import Book, Author, Genre
 from django.urls import reverse
 from .froms import AddBookForm, UpdateBookForm, AddBookCopyForm, AddAuthorForm
 from django.http import HttpResponseRedirect
@@ -27,28 +27,27 @@ class BookListView(View):
     @property
     def _genre_filter(self):
         selected_genres = self.request.GET.getlist("genre", [])
-        if len(selected_genres) > 0:
-            return Q(genres__id__in=selected_genres)
-        return Q()
+        return Q(genres__id__in=selected_genres) if selected_genres else Q()
 
     @property
     def _author_filter(self):
         selected_authors = self.request.GET.getlist("author", [])
-        if len(selected_authors) > 0:
-            return Q(authors__id__in=selected_authors)
-        return Q()
+        return Q(authors__id__in=selected_authors) if selected_authors else Q()
 
-    def _get_filters(self, books: list[Book]):
+    def _get_filters(self, books_queryset):
         selected_genres = self.request.GET.getlist("genre", [])
         selected_authors = self.request.GET.getlist("author", [])
-        authors_set = set([author for book in books for author in book.authors.all()])
-        genres_set = set([genre for book in books for genre in book.genres.all()])
-        for g in genres_set:
+
+        genres = Genre.objects.filter(books__in=books_queryset).distinct()
+        authors = Author.objects.filter(books__in=books_queryset).distinct()
+
+        for g in genres:
             g.selected = str(g.id) in selected_genres
-        for a in authors_set:
+
+        for a in authors:
             a.selected = str(a.id) in selected_authors
 
-        return {"genres": genres_set, "authors": authors_set}
+        return {"genres": genres, "authors": authors}
 
 
 class BookDetailView(View):
