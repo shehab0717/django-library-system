@@ -20,7 +20,7 @@ class AddBookCopyForm(forms.ModelForm):
     class Meta:
         model = models.BookCopy
         fields = "__all__"
-        exclude = ["book"]
+        exclude = ["book", "status"]
 
 
 class AddAuthorForm(forms.ModelForm):

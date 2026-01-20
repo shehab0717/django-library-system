@@ -27,7 +27,9 @@ class BookCopy(TimestampedModel):
         MAINTAINANCE = BookStatus.MAINTAINANCE, "Under Maintainance"
 
     copy_number = models.IntegerField("copy number")
-    status = models.CharField(max_length=20, choices=Status.choices)
+    status = models.CharField(
+        max_length=20, choices=Status.choices, default=BookStatus.AVAILABLE
+    )
     book = models.ForeignKey(
         Book, on_delete=models.CASCADE, related_name="copies", db_column="book_isbn"
     )
