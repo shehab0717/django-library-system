@@ -1,13 +1,11 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load crispy_forms_tags %}
-
 {% block title %}
   Add New Book
-{% endblock %}
-
+{% endblock title %}
 {% block content %}
   <div class="container-lg mb-5 mt-5">
-    <form action="{% url 'book:book_add' %}" method="POST">
+    <form action="{% url 'book:book_add' %}" method="post">
       {{ form.non_field_errors }}
       {% csrf_token %}
       {{ form|crispy }}
@@ -17,12 +15,11 @@
       </div>
     </form>
   </div>
-{% endblock %}
-
+{% endblock content %}
 {% block scripts %}
   <script>
     function goBack() {
       window.history.back()
     }
   </script>
-{% endblock %}
+{% endblock scripts %}

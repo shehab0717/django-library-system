@@ -1,22 +1,19 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
 {% load static %}
 {% block title %}
   {{ author.name }}
-{% endblock %}
+{% endblock title %}
 {% load crispy_forms_tags %}
 {% block content %}
   <div class="container-lg mb-5 mt-5">
-    <img src="{% if author.image %}
-        {{ author.image.url }}
-      {% else %}
-        {% static 'imgs/author_avatar.png' %}
-      {% endif %}"
-      alt="author image"
-      width="200px" />
+    <img src="{% if author.image %} {{ author.image.url }} {% else %} {% static 'imgs/author_avatar.png' %} {% endif %}"
+         alt="author image"
+         width="200px"
+         height="200px" />
     <div class="d-flex align-items-center mb-5 mt-4">
       <h2>{{ author.name }}</h2>
-      <a href="{% url 'book:author_update' author.id %}" class="btn btn-sm btn-outline-primary ms-4">Update</a>
+      <a href="{% url 'book:author_update' author.id %}"
+         class="btn btn-sm btn-outline-primary ms-4">Update</a>
     </div>
     <div class="row">
       <div class="col-3 col-md-2 col-lg-1">
@@ -71,9 +68,7 @@
                   <td>{{ book.pub_year }}</td>
                   <td>
                     <ul class="list-unstyled">
-                      {% for genre in book.genres.all %}
-                        <li class="">{{ genre }}</li>
-                      {% endfor %}
+                      {% for genre in book.genres.all %}<li>{{ genre }}</li>{% endfor %}
                     </ul>
                   </td>
                 </tr>
@@ -86,4 +81,4 @@
       </div>
     </div>
   </div>
-{% endblock %}
+{% endblock content %}

@@ -1,34 +1,41 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
 {% block title %}
   Books
-{% endblock %}
-
+{% endblock title %}
 {% block style %}
   <style>
     .link {
       text-decoration: none;
     }
   </style>
-{% endblock %}
-
+{% endblock style %}
 {% block content %}
   <div class="container-fluid">
     <div class="row">
       <!-- Filter -->
       <div class="col-12 col-md-4 col-lg-2 pt-5 pb-5">
         <h4>Filter</h4>
-        <form action="{% url 'book:book_index' %}" method="GET">
+        <form action="{% url 'book:book_index' %}" method="get">
           <input type="text" name="q" id="q" value="{{ q }}" hidden />
           <p class="mt-5">Genre:</p>
           {% for genre in filters.genres %}
-            <input type="checkbox" name="genre" id="{{ genre.name }}" value="{{ genre.id }}" {% if genre.selected %}checked{% endif %} />
-            <label for="{{ genre.name }}">{{ genre }}</label> <br />
+            <input type="checkbox"
+                   name="genre"
+                   id="{{ genre.name }}"
+                   value="{{ genre.id }}"
+                   {% if genre.selected %}checked{% endif %} />
+            <label for="{{ genre.name }}">{{ genre }}</label>
+            <br />
           {% endfor %}
           <p class="mt-5">Author:</p>
           {% for author in filters.authors %}
-            <input type="checkbox" name="author" id="{{ author.name }}" value="{{ author.id }}" {% if author.selected %}checked{% endif %} />
-            <label for="{{ author.name }}">{{ author }}</label> <br />
+            <input type="checkbox"
+                   name="author"
+                   id="{{ author.name }}"
+                   value="{{ author.id }}"
+                   {% if author.selected %}checked{% endif %} />
+            <label for="{{ author.name }}">{{ author }}</label>
+            <br />
           {% endfor %}
           <input type="submit" value="Apply" class="btn btn-success w-100 mt-5" />
         </form>
@@ -39,7 +46,11 @@
           <div>
             <form action="{% url 'book:book_index' %}">
               <div class="form-group d-flex">
-                <input type="text" class="form-control me-3" name="q" placeholder="Book title.." value="{{ q }}" />
+                <input type="text"
+                       class="form-control me-3"
+                       name="q"
+                       placeholder="Book title.."
+                       value="{{ q }}" />
                 <input type="submit" value="Search" class="btn btn-success" />
               </div>
             </form>
@@ -67,17 +78,13 @@
                 </td>
                 <td>
                   <ul class="list-unstyled">
-                    {% for genre in book.genres.all %}
-                      <li class="">
-                        {{ genre }}
-                      </li>
-                    {% endfor %}
+                    {% for genre in book.genres.all %}<li>{{ genre }}</li>{% endfor %}
                   </ul>
                 </td>
                 <td>
                   <ul class="list-unstyled">
                     {% for author in book.authors.all %}
-                      <li class="">
+                      <li>
                         <a class="link" href="{% url 'book:author_detail' author.id %}">{{ author }}</a>
                       </li>
                     {% endfor %}
@@ -90,4 +97,4 @@
       </div>
     </div>
   </div>
-{% endblock %}
+{% endblock content %}
