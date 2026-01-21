@@ -29,13 +29,13 @@
           <button name="view"
                   value="list"
                   type="submit"
-                  class="btn btn-{% if list_view == 'list' %}  secondary  {% else %}  outline-secondary  {% endif %}">
+                  class="btn {% if list_view == 'list' %} btn-secondary {% else %} btn-outline-secondary {% endif %}">
             <i class="fas fa-list"></i>
           </button>
           <button name="view"
                   value="grid"
                   type="submit"
-                  class="btn btn {% if list_view == 'grid' %}     btn-secondary     {% else %}     btn-outline-secondary      {% endif %}">
+                  class="btn btn {% if list_view == 'grid' %} btn-secondary {% else %} btn-outline-secondary {% endif %}">
             <i class="fas fa-grip-horizontal"></i>
           </button>
         </form>
