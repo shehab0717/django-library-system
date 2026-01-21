@@ -1,0 +1,26 @@
+{% load static %}
+<div class="card" style="width: 18rem;">
+    <img class="card-img-top"
+         src=" {% if author.image %} {{ author.image.url }} {% else %} {% static 'imgs/author_avatar.png' %}{% endif %}"
+         alt="Card image cap"
+         width="200px"
+         height="200px"
+         style="object-fit: contain">
+    <div class="card-body overflow-hidden d-flex flex-column justify-content-between align-items-start">
+        <div>
+            <h5 class="card-title">
+                <a class="text-decoration-none text-dark"
+                   href="{% url 'book:author_detail' author.id %}">{{ author.name }}<i class="ms-2 fa-xs fas fa-external-link-alt"></i></a>
+            </h5>
+            <div class="mb-1">
+                <span class="badge bg-success">{{ author.nationality }}</span>
+            </div>
+            <p class="card-text mb-3 mt-3"
+               style="overflow: hidden;
+                      display: -webkit-box;
+                      -webkit-line-clamp: 3;
+                      -webkit-box-orient: vertical">{{ author.bio }}</p>
+        </div>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+</div>

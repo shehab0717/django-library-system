@@ -29,44 +29,54 @@
           <button name="view"
                   value="list"
                   type="submit"
-                  class="btn {% if list_view == 'list' %} btn-secondary {% else %} btn-outline-secondary {% endif %}">
+                  class="btn {% if view == 'list' %} btn-secondary {% else %} btn-outline-secondary {% endif %}">
             <i class="fas fa-list"></i>
           </button>
           <button name="view"
                   value="grid"
                   type="submit"
-                  class="btn btn {% if list_view == 'grid' %} btn-secondary {% else %} btn-outline-secondary {% endif %}">
+                  class="btn btn {% if view == 'grid' %} btn-secondary {% else %} btn-outline-secondary {% endif %}">
             <i class="fas fa-grip-horizontal"></i>
           </button>
         </form>
       </div>
       <a href="{% url 'book:author_add' %}" class="btn btn-primary">New Author</a>
     </div>
-    <table class="table table-striped">
-      <thead class="thead-dark">
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Bio</th>
-          <th>Nationality</th>
-        </tr>
-      </thead>
-      <tbody>
+    {% if view == 'grid' %}
+      <div class="row d-flex justify-content-start">
         {% for author in authors %}
-          <tr>
-            <td>{{ author.id }}</td>
-            <td>
-              <div class="d-flex justify-content-between me-3">
-                <a href="{% url 'book:author_detail' author.id %}" class="link me-3">{{ author.name }} <i class="fas fa-external-link-alt"></i></a>
-              </div>
-            </td>
-            <td style="max-width: 250px;">
-              <div class="text-truncate">{{ author.bio }}</div>
-            </td>
-            <td>{{ author.nationality }}</td>
-          </tr>
+          <div class="col col-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 mb-3 d-flex justify-content-center">
+            {% include "author_card.html" with author=author %}
+          </div>
         {% endfor %}
-      </tbody>
-    </table>
+      </div>
+    {% elif view == 'list' %}
+      <table class="table table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Bio</th>
+            <th>Nationality</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for author in authors %}
+            <tr>
+              <td>{{ author.id }}</td>
+              <td>
+                <div class="d-flex justify-content-between me-3">
+                  <a href="{% url 'book:author_detail' author.id %}" class="link me-3">{{ author.name }} <i class="fas fa-external-link-alt"></i></a>
+                </div>
+              </td>
+              <td style="max-width: 250px;">
+                <div class="text-truncate">{{ author.bio }}</div>
+              </td>
+              <td>{{ author.nationality }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
   </div>
 {% endblock content %}
