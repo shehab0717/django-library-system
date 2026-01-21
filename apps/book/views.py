@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.views import View
 from .models import Book, Author, Genre
 from django.urls import reverse
-from .froms import AddBookForm, UpdateBookForm, AddBookCopyForm, AddAuthorForm
+from . import forms
 from django.http import HttpResponseRedirect
 from django.db import IntegrityError
 from django.db.models import Q
@@ -53,7 +53,7 @@ class BookListView(View):
 class BookDetailView(View):
     def get(self, request, book_isbn):
         book = get_object_or_404(Book, pk=book_isbn)
-        book_copy_form = AddBookCopyForm()
+        book_copy_form = forms.AddBookCopyForm()
         return render(
             request,
             "book/book_detail.html",
@@ -62,7 +62,7 @@ class BookDetailView(View):
 
     def post(self, request, book_isbn):
         book = get_object_or_404(Book, pk=book_isbn)
-        book_copy_form = AddBookCopyForm(request.POST)
+        book_copy_form = forms.AddBookCopyForm(request.POST)
         if book_copy_form.is_valid():
             print("Form is valid")
             book_copy = book_copy_form.save(commit=False)
@@ -83,11 +83,11 @@ class BookDetailView(View):
 
 class AddBookView(View):
     def get(self, request):
-        form = AddBookForm()
+        form = forms.AddBookForm()
         return render(request, "book/book_add.html", {"form": form})
 
     def post(self, request):
-        form = AddBookForm(request.POST)
+        form = forms.AddBookForm(request.POST)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse("book:book_index"))
@@ -100,7 +100,7 @@ class UpdateBookView(View):
 
     def get(self, request, book_isbn):
         book = get_object_or_404(Book, pk=book_isbn)
-        form = UpdateBookForm(instance=book)
+        form = forms.UpdateBookForm(instance=book)
         return render(
             request,
             "book/book_update.html",
@@ -112,7 +112,7 @@ class UpdateBookView(View):
 
     def post(self, request, book_isbn):
         book = get_object_or_404(Book, pk=book_isbn)
-        form = UpdateBookForm(request.POST, instance=book)
+        form = forms.UpdateBookForm(request.POST, instance=book)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(self.get_next_url(request))
@@ -137,11 +137,11 @@ class AuthorListView(View):
 
 class AuthorCreateView(View):
     def get(self, request):
-        form = AddAuthorForm()
+        form = forms.AddAuthorForm()
         return render(request, "book/author_add.html", {"form": form})
 
     def post(self, request):
-        form = AddAuthorForm(request.POST, request.FILES)
+        form = forms.AddAuthorForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse("book:author_index"))
