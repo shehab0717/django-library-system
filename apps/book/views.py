@@ -53,7 +53,7 @@ class BookListView(View):
 class BookDetailView(View):
     def get(self, request, book_isbn):
         book = get_object_or_404(Book, pk=book_isbn)
-        book_copy_form = forms.AddBookCopyForm()
+        book_copy_form = forms.BookCopyCreateForm()
         return render(
             request,
             "book/book_detail.html",
@@ -62,7 +62,7 @@ class BookDetailView(View):
 
     def post(self, request, book_isbn):
         book = get_object_or_404(Book, pk=book_isbn)
-        book_copy_form = forms.AddBookCopyForm(request.POST)
+        book_copy_form = forms.BookCopyCreateForm(request.POST)
         if book_copy_form.is_valid():
             print("Form is valid")
             book_copy = book_copy_form.save(commit=False)
@@ -83,11 +83,11 @@ class BookDetailView(View):
 
 class AddBookView(View):
     def get(self, request):
-        form = forms.AddBookForm()
+        form = forms.BookCreateForm()
         return render(request, "book/book_add.html", {"form": form})
 
     def post(self, request):
-        form = forms.AddBookForm(request.POST)
+        form = forms.BookCreateForm(request.POST)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse("book:book_index"))
@@ -142,11 +142,11 @@ class AuthorListView(View):
 
 class AuthorCreateView(View):
     def get(self, request):
-        form = forms.AddAuthorForm()
+        form = forms.AuthorCreateForm()
         return render(request, "book/author_add.html", {"form": form})
 
     def post(self, request):
-        form = forms.AddAuthorForm(request.POST, request.FILES)
+        form = forms.AuthorCreateForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse("book:author_index"))
@@ -165,12 +165,12 @@ class AuthorDetailview(View):
 class AuthorUpdateView(View):
     def get(self, request, author_id):
         author = get_object_or_404(Author, pk=author_id)
-        form = forms.UpdateAuthorForm(instance=author)
+        form = forms.AuthorUpdateForm(instance=author)
         return render(request, "book/author_update.html", {"form": form})
 
     def post(self, request, author_id):
         author = get_object_or_404(Author, pk=author_id)
-        form = forms.UpdateAuthorForm(request.POST, request.FILES, instance=author)
+        form = forms.AuthorUpdateForm(request.POST, request.FILES, instance=author)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse("book:author_detail", args=[author_id]))
