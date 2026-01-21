@@ -21,6 +21,6 @@
                       -webkit-line-clamp: 3;
                       -webkit-box-orient: vertical">{{ author.bio }}</p>
         </div>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <p class="fw-bold text-primary">{{ author.books.count }} Book{{ author.books.count | pluralize }}</p>
     </div>
 </div>
