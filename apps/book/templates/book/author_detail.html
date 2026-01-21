@@ -49,36 +49,40 @@
         <p class="fw-bold">Books:</p>
       </div>
       <div class="col-9 col-md-10 col-lg-11">
-        <table class="table table-striped">
-          <thead class="thead-dark">
-            <tr>
-              <th>ISBN</th>
-              <th>Title</th>
-              <th>Publish Year</th>
-              <th>Genres</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for book in author.books.all %}
+        {% if author.books.count %}
+          <table class="table table-striped">
+            <thead class="thead-dark">
               <tr>
-                <td>{{ book.isbn }}</td>
-                <td>
-                  <div class="d-flex justify-content-between me-3">
-                    <a href="{% url 'book:book_detail' book.isbn %}" class="link me-3">{{ book.title }} <i class="fas fa-external-link-alt"></i></a>
-                  </div>
-                </td>
-                <td>{{ book.pub_year }}</td>
-                <td>
-                  <ul class="list-unstyled">
-                    {% for genre in book.genres.all %}
-                      <li class="">{{ genre }}</li>
-                    {% endfor %}
-                  </ul>
-                </td>
+                <th>ISBN</th>
+                <th>Title</th>
+                <th>Publish Year</th>
+                <th>Genres</th>
               </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {% for book in author.books.all %}
+                <tr>
+                  <td>{{ book.isbn }}</td>
+                  <td>
+                    <div class="d-flex justify-content-between me-3">
+                      <a href="{% url 'book:book_detail' book.isbn %}" class="link me-3">{{ book.title }} <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                  </td>
+                  <td>{{ book.pub_year }}</td>
+                  <td>
+                    <ul class="list-unstyled">
+                      {% for genre in book.genres.all %}
+                        <li class="">{{ genre }}</li>
+                      {% endfor %}
+                    </ul>
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <p class="text-warning fw-bold">No books found for this author!</p>
+        {% endif %}
       </div>
     </div>
   </div>
