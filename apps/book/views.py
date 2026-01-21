@@ -141,7 +141,7 @@ class AuthorCreateView(View):
         return render(request, "book/author_add.html", {"form": form})
 
     def post(self, request):
-        form = AddAuthorForm(request.POST)
+        form = AddAuthorForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse("book:author_index"))

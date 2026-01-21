@@ -3,6 +3,7 @@ from django.forms import ValidationError
 from apps.core.models import TimestampedModel
 from apps.book.const import BookStatus
 from django.core.validators import MinLengthValidator
+from apps.core.utils import UploadTo
 
 
 class Book(TimestampedModel):
@@ -67,6 +68,7 @@ class Genre(TimestampedModel):
 
 
 class Author(TimestampedModel):
+    image = models.ImageField(null=True, blank=True, upload_to=UploadTo("author/"))
     name = models.CharField(max_length=50, validators=[MinLengthValidator(5)])
     bio = models.CharField(max_length=400, validators=[MinLengthValidator(20)])
     nationality = models.CharField(max_length=50, validators=[MinLengthValidator(5)])
