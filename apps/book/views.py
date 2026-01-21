@@ -130,9 +130,14 @@ class DeleteBookView(View):
 class AuthorListView(View):
     def get(self, request):
         q = request.GET.get("q", "")
+        list_view = request.GET.get("view", "list")
         query = Q(name__icontains=q) | Q(bio__icontains=q)
         authors = Author.objects.filter(query).all()
-        return render(request, "book/author_index.html", {"authors": authors, "q": q})
+        return render(
+            request,
+            "book/author_index.html",
+            {"authors": authors, "q": q, "list_view": list_view},
+        )
 
 
 class AuthorCreateView(View):
