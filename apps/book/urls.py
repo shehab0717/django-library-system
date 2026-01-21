@@ -18,4 +18,9 @@ urlpatterns = [
         views.AuthorDetailview.as_view(),
         name="author_detail",
     ),
+    path(
+        "author/<int:author_id>/update/",
+        views.AuthorUpdateView.as_view(),
+        name="author_update",
+    ),
 ]

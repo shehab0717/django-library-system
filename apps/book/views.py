@@ -157,6 +157,21 @@ class AuthorDetailview(View):
         return render(request, "book/author_detail.html", {"author": author})
 
 
+class AuthorUpdateView(View):
+    def get(self, request, author_id):
+        author = get_object_or_404(Author, pk=author_id)
+        form = forms.UpdateAuthorForm(instance=author)
+        return render(request, "book/author_update.html", {"form": form})
+
+    def post(self, request, author_id):
+        author = get_object_or_404(Author, pk=author_id)
+        form = forms.UpdateAuthorForm(request.POST, request.FILES, instance=author)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse("book:author_detail", args=[author_id]))
+        return render(request, "book/author_update.html", {"form": form})
+
+
 # class BookListView(ListView):
 #     model = Book
 #     context_object_name = "books"

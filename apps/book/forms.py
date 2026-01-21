@@ -28,3 +28,10 @@ class AddAuthorForm(forms.ModelForm):
         model = models.Author
         fields = "__all__"
         widgets = {"birth_date": DateInput(), "death_date": DateInput()}
+
+
+class UpdateAuthorForm(forms.ModelForm):
+    class Meta:
+        model = models.Author
+        fields = "__all__"
+        widgets = {"birth_date": DateInput(), "death_date": DateInput()}
