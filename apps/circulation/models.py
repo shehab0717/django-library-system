@@ -8,7 +8,7 @@ from apps.book.models import BookCopy
 
 
 def validate_borrow_date(value: timezone.datetime):
-    if timezone.now() > value:
+    if timezone.now().date() > value.date():
         raise ValidationError(message="Borrow date cannot be in the future")
 
 
