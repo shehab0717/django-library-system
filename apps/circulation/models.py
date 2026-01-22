@@ -1,9 +1,15 @@
 from django.db import models
+from django.forms import ValidationError
 from apps.core.models import TimestampedModel
 from django.utils import timezone
 from .const import CirculationStatus
 from apps.member.models import Member
 from apps.book.models import BookCopy
+
+
+def validate_borrow_date(value: timezone.datetime):
+    if timezone.now() > value:
+        raise ValidationError(message="Borrow date cannot be in the future")
 
 
 class CirculationRecord(TimestampedModel):
@@ -12,11 +18,20 @@ class CirculationRecord(TimestampedModel):
         RETURNED = CirculationStatus.RETURNED, "Returned"
         OVERDUE = CirculationStatus.OVERDUE, "Overdue"
 
-    member = models.ForeignKey(Member, on_delete=models.CASCADE)
-    book_copy = models.ForeignKey(BookCopy, on_delete=models.CASCADE)
-    borrow_date = models.DateTimeField()
+    member = models.ForeignKey(
+        Member, on_delete=models.CASCADE, related_name="borrowings"
+    )
+    book_copy = models.ForeignKey(
+        BookCopy, on_delete=models.CASCADE, related_name="circulations"
+    )
+    borrow_date = models.DateTimeField(
+        default=timezone.now, validators=[validate_borrow_date]
+    )
     due_date = models.DateTimeField()
-    status = models.CharField(max_length=20, choices=Status.choices)
+    return_date = models.DateTimeField(blank=True, null=True)
+    status = models.CharField(
+        max_length=20, choices=Status.choices, default=CirculationStatus.ACTIVE
+    )
     fine = models.IntegerField(default=0, blank=True)
 
     def __str__(self):
