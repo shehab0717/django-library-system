@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}
+    Mmebers
+{% endblock title %}
+{% block content %}
+    <div class="container-lg">
+        <div class="d-flex justify-content-end mt-5">
+            <a href="{% url 'member:member_add' %}" class="btn btn-primary">New member</a>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Membership</th>
+                <th>Member Since</th>
+            </thead>
+            <tbody>
+                {% for member in members %}
+                    <tr>
+                        <td>{{ member.id }}</td>
+                        <td>{{ member.name }}</td>
+                        <td>{{ member.membership }}</td>
+                        <td>{{ member.created_at | date }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}
