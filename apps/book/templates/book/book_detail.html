@@ -5,35 +5,56 @@
 {% load crispy_forms_tags %}
 {% block content %}
   <div class="container-lg mb-5 mt-5">
-    <img src="{{ book.cover_image.url }}"
-         alt=""
-         width="200px"
-         height="200px"
-         class="object-fit-contain">
-    <h2 class="mb-5 mt-5">{{ book.title }}</h2>
-    <table class="table table-striped">
-      <tbody>
-        <tr>
-          <td class="fw-bold">Publish year:</td>
-          <td>{{ book.pub_year }}</td>
-        </tr>
-        <tr>
-          <td class="fw-bold">Genres:</td>
-          <td>
-            {% for genre in book.genres.all %}{{ genre }},{% endfor %}
-          </td>
-        </tr>
-        <tr>
-          <td class="fw-bold">Authors:</td>
-          <td>
-            {% for author in book.authors.all %}{{ author }},{% endfor %}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <h2 class="mb-3">{{ book.title }}</h2>
+    <div class="row">
+      <div class="col-12 col-md-3 p-5 p-md-2">
+        <div class="rounded overflow-hidden">
+          <img src="{{ book.cover_image.url }}"
+               alt=""
+               width="100%"
+               height="100%"
+               class="object-fit-cover">
+        </div>
+        <div class="row align-items-stretch">
+          {% for img in book.images.all %}
+            <div class="col-4 p-2">
+              <div class=" h-100 rounded overflow-hidden">
+                <img src="{{ img.image.url }}"
+                     alt=""
+                     width="100%"
+                     height="100%"
+                     class="object-fit-cover">
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="col-12 col-md-9 p-5">
+        <table class="table table-striped">
+          <tbody>
+            <tr>
+              <td class="fw-bold">Publish year:</td>
+              <td>{{ book.pub_year }}</td>
+            </tr>
+            <tr>
+              <td class="fw-bold">Genres:</td>
+              <td>
+                {% for genre in book.genres.all %}{{ genre }},{% endfor %}
+              </td>
+            </tr>
+            <tr>
+              <td class="fw-bold">Authors:</td>
+              <td>
+                {% for author in book.authors.all %}{{ author }},{% endfor %}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
     <hr class="mt-5" />
     <h4 class="mt-5 mb-4">Book Copies</h4>
-    <div class="row">
+    <div class="row p-3">
       <div class="col-8 border border-dark rounded me-2 p-4">
         {% if book.copies.count %}
           <table class="table table-striped">
