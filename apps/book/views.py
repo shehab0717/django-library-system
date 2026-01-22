@@ -118,29 +118,50 @@ class AddBookView(View):
 
 
 class UpdateBookView(View):
+    BookImageFormSet = inlineformset_factory(
+        Book,
+        BookImage,
+        fields=("image",),
+        extra=3,
+        max_num=3,
+        can_delete=True,
+    )
+
     def get_next_url(self, request):
         return request.GET.get("next", reverse("book:book_index"))
 
     def get(self, request, book_isbn):
         book = get_object_or_404(Book, pk=book_isbn)
         form = forms.UpdateBookForm(instance=book)
+        images_formset = self.BookImageFormSet(instance=book)
         return render(
             request,
             "book/book_update.html",
             {
                 "form": form,
+                "images_formset": images_formset,
                 "next": self.get_next_url(request),
             },
         )
 
     def post(self, request, book_isbn):
         book = get_object_or_404(Book, pk=book_isbn)
+        images_formset = self.BookImageFormSet(
+            request.POST, request.FILES, instance=book
+        )
         form = forms.UpdateBookForm(request.POST, request.FILES, instance=book)
-        if form.is_valid():
-            form.save()
+        if form.is_valid() and images_formset.is_valid():
+            updated_book = form.save()
+            images_formset.instance = updated_book
+            images_formset.save()
+
             return HttpResponseRedirect(self.get_next_url(request))
 
-        return render(request, "book/book_update.html", {"form": form})
+        return render(
+            request,
+            "book/book_update.html",
+            {"form": form, "images_formset": images_formset},
+        )
 
 
 class DeleteBookView(View):
