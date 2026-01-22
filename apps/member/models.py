@@ -1,6 +1,8 @@
 from django.db import models
 from apps.core.models import TimestampedModel
 from .const import MemberStatus
+from django.core.validators import MinLengthValidator, EmailValidator
+from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Member(TimestampedModel):
@@ -9,9 +11,11 @@ class Member(TimestampedModel):
         SUSPENDED = MemberStatus.suspended, "Suspended"
         EXPIRED = MemberStatus.expired, "Expired"
 
-    name = models.CharField(max_length=50)
-    phone_number = models.CharField(max_length=14)
-    email = models.CharField(max_length=50, blank=True, null=True)
+    name = models.CharField(max_length=50, validators=[MinLengthValidator(5)])
+    phone_number = PhoneNumberField(max_length=14)
+    email = models.CharField(
+        max_length=50, blank=True, null=True, validators=[EmailValidator()]
+    )
     membership = models.ForeignKey("Membership", on_delete=models.CASCADE)
     status = models.CharField(
         max_length=20,

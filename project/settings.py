@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "apps.book.apps.BookConfig",
     "apps.member.apps.MemberConfig",
     "apps.circulation.apps.CirculationConfig",
+    "phonenumber_field",
     "crispy_forms",
     "crispy_bootstrap5",
     "django.contrib.admin",
