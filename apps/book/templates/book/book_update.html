@@ -5,7 +5,8 @@
 {% endblock title %}
 {% block content %}
   <div class="container-lg mb-5 mt-5">
-    <form action="{% url 'book:book_update' form.isbn.value %}?next={{ next }}"
+    <form enctype="multipart/form-data"
+          action="{% url 'book:book_update' form.isbn.value %}?next={{ next }}"
           method="post">
       {{ form.non_field_errors }}
       {% csrf_token %}

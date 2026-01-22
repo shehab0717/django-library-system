@@ -5,7 +5,12 @@
 {% load crispy_forms_tags %}
 {% block content %}
   <div class="container-lg mb-5 mt-5">
-    <h2 class="mb-5">{{ book.title }}</h2>
+    <img src="{{ book.cover_image.url }}"
+         alt=""
+         width="200px"
+         height="200px"
+         class="object-fit-contain">
+    <h2 class="mb-5 mt-5">{{ book.title }}</h2>
     <table class="table table-striped">
       <tbody>
         <tr>

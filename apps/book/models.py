@@ -9,6 +9,7 @@ from apps.core.utils import UploadTo
 class Book(TimestampedModel):
     isbn = models.IntegerField(primary_key=True)
     title = models.CharField(max_length=200, validators=[MinLengthValidator(5)])
+    cover_image = models.ImageField(upload_to=UploadTo("book/"))
     pub_year = models.IntegerField("publish year")
     genres = models.ManyToManyField("Genre", related_name="books")
     authors = models.ManyToManyField("Author", related_name="books")
@@ -19,6 +20,11 @@ class Book(TimestampedModel):
 
     def __str__(self):
         return self.title
+
+
+class BookImage(models.Model):
+    image = models.ImageField(upload_to=UploadTo("book/"))
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="images")
 
 
 class BookCopy(TimestampedModel):

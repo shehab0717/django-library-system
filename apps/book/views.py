@@ -87,7 +87,7 @@ class AddBookView(View):
         return render(request, "book/book_add.html", {"form": form})
 
     def post(self, request):
-        form = forms.BookCreateForm(request.POST)
+        form = forms.BookCreateForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse("book:book_index"))
@@ -112,7 +112,7 @@ class UpdateBookView(View):
 
     def post(self, request, book_isbn):
         book = get_object_or_404(Book, pk=book_isbn)
-        form = forms.UpdateBookForm(request.POST, instance=book)
+        form = forms.UpdateBookForm(request.POST, request.FILES, instance=book)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(self.get_next_url(request))
