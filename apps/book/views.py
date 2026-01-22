@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.views import View
-from .models import Book, Author, Genre
+from .models import Book, Author, BookImage, Genre
 from django.urls import reverse
 from . import forms
 from django.http import HttpResponseRedirect
 from django.db import IntegrityError
 from django.db.models import Q
+from django.forms import inlineformset_factory
 
 
 class BookListView(View):
@@ -82,16 +83,38 @@ class BookDetailView(View):
 
 
 class AddBookView(View):
+    BookImageFormSet = inlineformset_factory(
+        Book,
+        BookImage,
+        fields=("image",),
+        extra=3,
+    )
+
     def get(self, request):
+        images_formset = self.BookImageFormSet()
         form = forms.BookCreateForm()
-        return render(request, "book/book_add.html", {"form": form})
+        return render(
+            request,
+            "book/book_add.html",
+            {"form": form, "images_formset": images_formset},
+        )
 
     def post(self, request):
         form = forms.BookCreateForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
+        book = Book()
+        images_formset = self.BookImageFormSet(
+            request.POST, request.FILES, instance=book
+        )
+        if form.is_valid() and images_formset.is_valid():
+            book = form.save()
+            images_formset.instance = book
+            images_formset.save()
             return HttpResponseRedirect(reverse("book:book_index"))
-        return render(request, "book/book_add.html", {"form": form})
+        return render(
+            request,
+            "book/book_add.html",
+            {"form": form, "images_formset": images_formset},
+        )
 
 
 class UpdateBookView(View):
