@@ -75,8 +75,12 @@
               {% for copy in book.copies.all %}
                 <tr class="fw-bold">
                   <td>{{ copy.copy_number }}</td>
-                  <td class="{% if copy.is_available %}   text-success   {% else %}   text-danger   {% endif %}">
+                  <td class="{% if copy.is_available %}   text-success   {% else %}   text-secondary   {% endif %}">
                     {{ copy.status|capfirst }}
+                    {% if copy.is_borrowed %}
+                      by: <a href="{% url 'member:member_detail' copy.borrower.id %}"
+    class="fw-normal">{{ copy.borrower }}</a>
+                    {% endif %}
                   </td>
                   <td>
                     {% if copy.is_available %}

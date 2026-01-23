@@ -4,6 +4,7 @@ from apps.core.models import TimestampedModel
 from apps.book.const import BookStatus
 from django.core.validators import MinLengthValidator
 from apps.core.utils import UploadTo
+from apps.circulation.const import CirculationStatus
 
 
 class Book(TimestampedModel):
@@ -43,6 +44,17 @@ class BookCopy(TimestampedModel):
 
     def is_available(self):
         return self.status == BookStatus.AVAILABLE
+
+    def is_borrowed(self):
+        return self.status == BookStatus.BORROWED
+
+    def borrower(self):
+        records = self.circulations.filter(
+            book_copy=self, status=CirculationStatus.ACTIVE
+        ).all()
+        if len(records) > 0:
+            return records[0].member
+        return None
 
     class Meta:
         verbose_name_plural = "Book copies"
