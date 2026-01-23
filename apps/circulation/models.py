@@ -18,7 +18,6 @@ class CirculationRecord(TimestampedModel):
     class Status(models.TextChoices):
         ACTIVE = CirculationStatus.ACTIVE, "Active"
         RETURNED = CirculationStatus.RETURNED, "Returned"
-        OVERDUE = CirculationStatus.OVERDUE, "Overdue"
 
     member = models.ForeignKey(
         Member, on_delete=models.CASCADE, related_name="borrowings"
@@ -35,6 +34,14 @@ class CirculationRecord(TimestampedModel):
         max_length=20, choices=Status.choices, default=CirculationStatus.ACTIVE
     )
     fine = models.IntegerField(default=0, blank=True)
+
+    @property
+    def is_returned(self):
+        return self.status == CirculationStatus.RETURNED
+
+    @property
+    def is_overdued(self):
+        return self.due_date.date() < timezone.now().date()
 
     def save(self, *args, **kwargs):
         self.book_copy.status = (
