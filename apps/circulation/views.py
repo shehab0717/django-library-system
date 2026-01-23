@@ -3,6 +3,9 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import View
+from django.http import HttpResponseBadRequest
+
+from .const import CirculationStatus
 
 from .models import CirculationRecord
 from .forms import BorrowingCreateForm
@@ -20,6 +23,10 @@ class CirculationIndexView(View):
 class BorrowingCreateView(View):
     def get(self, request, book_copy_id):
         book_copy = get_object_or_404(BookCopy, pk=book_copy_id)
+        if not book_copy.is_available():
+            return HttpResponseBadRequest(
+                "This book copy is not available, it is already borrowed"
+            )
         form = BorrowingCreateForm()
         return render(
             request,
@@ -29,6 +36,10 @@ class BorrowingCreateView(View):
 
     def post(self, request, book_copy_id):
         book_copy = get_object_or_404(BookCopy, pk=book_copy_id)
+        if not book_copy.is_available():
+            return HttpResponseBadRequest(
+                "This book copy is not available, it is already borrowed"
+            )
         form = BorrowingCreateForm(request.POST)
         if form.is_valid():
             circulation: CirculationRecord = form.save(commit=False)
