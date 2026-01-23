@@ -61,6 +61,7 @@
             <thead>
               <th>Copy Number</th>
               <th>Status</th>
+              <th>--</th>
             </thead>
             <tbody>
               {% for copy in book.copies.all %}
@@ -68,6 +69,13 @@
                   <td>{{ copy.copy_number }}</td>
                   <td class="{% if copy.is_available %}   text-success   {% else %}   text-danger   {% endif %}">
                     {{ copy.status|capfirst }}
+                  </td>
+                  <td>
+                    {% if copy.is_available %}
+                      <a class="btn btn-sm btn-outline-warning"
+                         href="{% url 'circulation:borrowing_add' copy.id %}"
+                         target="_blank">Borrow</a>
+                    {% endif %}
                   </td>
                 </tr>
               {% endfor %}

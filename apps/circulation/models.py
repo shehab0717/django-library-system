@@ -2,6 +2,8 @@ from django.db import models
 from django.forms import ValidationError
 from apps.core.models import TimestampedModel
 from django.utils import timezone
+
+from apps.book.const import BookStatus
 from .const import CirculationStatus
 from apps.member.models import Member
 from apps.book.models import BookCopy
@@ -33,6 +35,15 @@ class CirculationRecord(TimestampedModel):
         max_length=20, choices=Status.choices, default=CirculationStatus.ACTIVE
     )
     fine = models.IntegerField(default=0, blank=True)
+
+    def save(self, *args, **kwargs):
+        self.book_copy.status = (
+            BookStatus.BORROWED
+            if self.status == CirculationStatus.ACTIVE
+            else BookStatus.AVAILABLE
+        )
+        self.book_copy.save()
+        return super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.member} - {self.book_copy}"

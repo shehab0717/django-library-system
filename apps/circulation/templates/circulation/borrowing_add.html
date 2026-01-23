@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="container-lg mt-5 mb-5">
+        <h2>Book Borrowing</h2>
+        <h5 class="text-primary mt-4 mb-3">{{ book_copy }}</h5>
+        <form action="{% url 'circulation:borrowing_add' book_copy.id %}"
+              method="post">
+            {{ form.non_field_errors }}
+            {% csrf_token %}
+            {{ form | crispy }}
+            <div class="d-flex">
+                <input type="submit" value="Save" class="btn btn-primary">
+            </div>
+        </form>
+    </div>
+{% endblock content %}
