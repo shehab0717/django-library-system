@@ -54,3 +54,16 @@ class BorrowingCreateView(View):
             "circulation/borrowing_add.html",
             {"book_copy": book_copy, "form": form},
         )
+
+
+class BorrowingReturnView(View):
+    def post(self, request, pk):
+        circulation_record = get_object_or_404(CirculationRecord, pk=pk)
+        next = request.GET.get(
+            "next", reverse("member:member_detail", args=[circulation_record.member.id])
+        )
+        circulation_record.status = CirculationStatus.RETURNED
+        circulation_record.return_date = timezone.now()
+
+        circulation_record.save()
+        return HttpResponseRedirect(next)

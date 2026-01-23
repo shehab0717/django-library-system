@@ -15,4 +15,9 @@ urlpatterns = [
         TemplateView.as_view(template_name="circulation/borrowing_success.html"),
         name="borrowing_success",
     ),
+    path(
+        "borrow/<int:pk>/return",
+        views.BorrowingReturnView.as_view(),
+        name="borrowing_return",
+    ),
 ]

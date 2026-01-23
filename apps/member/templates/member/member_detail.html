@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}
+    Member - {{ member.name }}
+{% endblock title %}
+{% block style %}
+    <style>
+    #info-table td:first-child{
+        font-weight: bold;
+        padding-right: 20px;
+    }
+    </style>
+{% endblock style %}
+{% block content %}
+    <div class="container-lg mt-5 mb-5">
+        <h3>{{ member.name }}</h3>
+        <table id="info-table">
+            <tbody>
+                <tr>
+                    <td>Phone:</td>
+                    <td>{{ member.phone_number }}</td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td>{{ member.email }}</td>
+                </tr>
+                <tr>
+                    <td>Member Since:</td>
+                    <td>{{ member.created_at }}</td>
+                </tr>
+                <tr>
+                    <td>Membership:</td>
+                    <td>{{ member.membership }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <h4 class="mt-4">Borrowings</h4>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <th>Book</th>
+                <th>Copy number</th>
+                <th>Borrow date</th>
+                <th>Due date</th>
+                <th>Status</th>
+                <th>--</th>
+            </thead>
+            <tbody>
+                {% for borrowing in member.borrowings.all %}
+                    <tr class="{% if borrowing.is_overdued %} table-danger {% endif %} {% if not borrowing.is_returned %}table-warning{% endif %}">
+                        <td>{{ borrowing.book_copy.book.title }}</td>
+                        <td>{{ borrowing.book_copy.copy_number }}</td>
+                        <td>{{ borrowing.borrow_date | date }}</td>
+                        <td>{{ borrowing.due_date | date }}</td>
+                        <td>
+                            {{ borrowing.status |capfirst }}
+                            {% if borrowing.is_returned %}{{ borrowing.return_date }}{% endif %}
+                        </td>
+                        <td>
+                            {% if not borrowing.is_returned %}
+                                <form action="{% url 'circulation:borrowing_return' borrowing.id %}"
+                                      method="post">
+                                    {% csrf_token %}
+                                    <input type="submit" value="Return Book" class="btn btn-success btn-sm">
+                                </form>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}

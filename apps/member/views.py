@@ -1,5 +1,5 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import View
 from . import models
@@ -23,3 +23,9 @@ class MmemberCreateView(View):
             form.save()
             return HttpResponseRedirect(reverse("member:member_index"))
         return render(request, "member/member_add.html", {"form": form})
+
+
+class MemberDetailView(View):
+    def get(self, request, member_id):
+        member = get_object_or_404(models.Member, pk=member_id)
+        return render(request, "member/member_detail.html", {"member": member})
