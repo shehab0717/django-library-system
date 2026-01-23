@@ -11,6 +11,8 @@
             <thead>
                 <th>ID</th>
                 <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
                 <th>Membership</th>
                 <th>Member Since</th>
             </thead>
@@ -18,7 +20,11 @@
                 {% for member in members %}
                     <tr>
                         <td>{{ member.id }}</td>
-                        <td>{{ member.name }}</td>
+                        <td>
+                            <a href="{% url 'member:member_detail' member.id %}" class="link me-3">{{ member.name }} <i class="fas fa-external-link-alt"></i></a>
+                        </td>
+                        <td>{{ member.phone_number }}</td>
+                        <td>{{ member.email }}</td>
                         <td>{{ member.membership }}</td>
                         <td>{{ member.created_at | date }}</td>
                     </tr>
