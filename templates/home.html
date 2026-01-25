@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load static %}
+{% block style %}
+    <style>
+    body {
+      scroll-behavior: smooth;
+    }
+
+    .hero {
+      background: #f5f7fa;
+      padding: 100px 20px;
+      text-align: center;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .section-title {
+      margin-bottom: 40px;
+    }
+
+    .card {
+      border-radius: 12px;
+    }
+
+    .offer-box {
+      background: #0d6efd;
+      color: white;
+      padding: 30px;
+      border-radius: 12px;
+      text-align: center;
+    }
+    </style>
+{% endblock style %}
+{% block content %}
+    <section class="hero text-dark"
+             style="background-image: url({% static 'imgs/library_cover.jpg' %})">
+        <div class="container">
+            <div class="bg-success-subtle opacity-75 rounded pt-3 pb-2">
+                <h1 class="display-5 fw-bold">Welcome to City Library</h1>
+                <p class="lead mt-3">Discover knowledge, explore stories, and learn something new every day.</p>
+            </div>
+            {% comment %} <a href="#services" class="btn btn-primary mt-3">Explore Services</a> {% endcomment %}
+        </div>
+    </section>
+    <!-- Services Section -->
+    <section id="services" class="py-5">
+        <div class="container">
+            <h2 class="text-center section-title">Our Services</h2>
+            <div class="row g-4 d-md-flex align-items-stretch">
+                <div class="col-md-4 ">
+                    <div class="card p-3 text-center h-100">
+                        <h5>Book Lending</h5>
+                        <p>Borrow thousands of books across different genres and subjects.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-3 text-center h-100">
+                        <h5>Reading Rooms</h5>
+                        <p>Quiet and comfortable spaces for study and research.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-3 text-center h-100">
+                        <h5>Digital Library</h5>
+                        <p>Access eBooks and online journals anytime, anywhere.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Latest Books Section -->
+    <section id="books" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center section-title">Latest Books</h2>
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="card p-3 text-center">
+                        <h6>The Silent Forest</h6>
+                        <p>By A. Green</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card p-3 text-center">
+                        <h6>Future Science</h6>
+                        <p>By L. Newton</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card p-3 text-center">
+                        <h6>History of Time</h6>
+                        <p>By R. Stone</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card p-3 text-center">
+                        <h6>Creative Writing</h6>
+                        <p>By M. Clark</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock content %}
