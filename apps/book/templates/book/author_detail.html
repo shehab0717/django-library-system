@@ -9,7 +9,8 @@
     <img src="{% if author.image %} {{ author.image.url }} {% else %} {% static 'imgs/author_avatar.png' %} {% endif %}"
          alt="author image"
          width="200px"
-         height="200px" />
+         height="200px"
+         class="object-fit-contain" />
     <div class="d-flex align-items-center mb-5 mt-4">
       <h2>{{ author.name }}</h2>
       <a href="{% url 'book:author_update' author.id %}"

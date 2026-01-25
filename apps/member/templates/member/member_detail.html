@@ -51,8 +51,8 @@
                         <td>{{ borrowing.borrow_date | date }}</td>
                         <td>{{ borrowing.due_date | date }}</td>
                         <td>
-                            {{ borrowing.status |capfirst }}
-                            {% if borrowing.is_returned %}{{ borrowing.return_date }}{% endif %}
+                            <span class="fw-bold">{{ borrowing.status |capfirst }}</span>
+                            {% if borrowing.is_returned %}- {{ borrowing.return_date | date }}{% endif %}
                         </td>
                         <td>
                             {% if not borrowing.is_returned %}
