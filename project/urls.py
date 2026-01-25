@@ -24,6 +24,7 @@ urlpatterns = [
     path("book/", include("apps.book.urls")),
     path("member/", include("apps.member.urls")),
     path("circulation/", include("apps.circulation.urls")),
+    path("", include("apps.core.urls")),
     path("admin/", admin.site.urls),
 ]
 
