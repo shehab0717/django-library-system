@@ -9,6 +9,7 @@
     .hero {
       background: #f5f7fa;
       padding: 100px 20px;
+      background-image: url({% static 'imgs/library_cover.jpg' %});
       text-align: center;
       background-size: cover;
       background-position: center;
@@ -32,8 +33,7 @@
     </style>
 {% endblock style %}
 {% block content %}
-    <section class="hero text-dark"
-             style="background-image: url({% static 'imgs/library_cover.jpg' %})">
+    <section class="hero text-dark">
         <div class="container">
             <div class="bg-success-subtle opacity-75 rounded pt-3 pb-2">
                 <h1 class="display-5 fw-bold">Welcome to City Library</h1>
