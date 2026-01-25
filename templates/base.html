@@ -55,7 +55,7 @@
                    href="{% url 'member:member_index' %}">Mmebers</a>
               </li>
             </ul>
-            {% if request.user %}
+            {% if request.user.is_authenticated %}
               <a class="ms-5 text-decoration-none fw-bold text-light"
                  href="{% url 'user_profile' %}">{{ request.user.username }}</a>
             {% else %}

@@ -1,4 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
-    {% if user.is_authenticated %}{{ user }}{% endif %}
+    <div class="container text-center">
+        {% if user.is_authenticated %}
+            Hello {{ user }}
+            <br>
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Logout" class="btn btn-danger">
+            </form>
+        {% endif %}
+    </div>
 {% endblock content %}
