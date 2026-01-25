@@ -23,6 +23,7 @@
   <body>
     <!-- Navigation Bar -->
     <header>
+      {% comment %} context {user: User, page: str} {% endcomment %}
       <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-lg">
           <a class="navbar-brand" href="#">📚 Library System</a>
@@ -38,21 +39,24 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
               <li class="nav-item">
-                <a class="nav-link active"
-                   aria-current="page"
+                <a class="nav-link {% if active_link == "home" %}active{% endif %}"
                    href="{% url 'book:book_index' %}">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'book:book_index' %}">Books</a>
+                <a class="nav-link {% if active_link == 'books' %}active{% endif %}"
+                   href="{% url 'book:book_index' %}">Books</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'book:author_index' %}">Authors</a>
+                <a class="nav-link {% if active_link == 'authors' %}active{% endif %}"
+                   href="{% url 'book:author_index' %}">Authors</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'member:member_index' %}">Mmebers</a>
+                <a class="nav-link {% if active_link == 'members' %}active{% endif %}"
+                   href="{% url 'member:member_index' %}">Mmebers</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'circulation:circulation_index' %}">Circulations</a>
+                <a class="nav-link {% if active_link == 'circulations' %}active{% endif %}"
+                   href="{% url 'circulation:circulation_index' %}">Circulations</a>
               </li>
             </ul>
           </div>
