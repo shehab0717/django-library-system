@@ -4,15 +4,20 @@ from django.urls import reverse
 from django.views import View
 from . import models
 from .forms import MemberCreateForm
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
-class MmeberIndexView(View):
+class MmeberIndexView(PermissionRequiredMixin, View):
+    permission_required = "member.view_member"
+
     def get(self, request):
         members = models.Member.objects.all()
         return render(request, "member/member_index.html", {"members": members})
 
 
-class MmemberCreateView(View):
+class MmemberCreateView(PermissionRequiredMixin, View):
+    permission_required = "member.add_member"
+
     def get(self, request):
         form = MemberCreateForm()
         return render(request, "member/member_add.html", {"form": form})
@@ -25,7 +30,9 @@ class MmemberCreateView(View):
         return render(request, "member/member_add.html", {"form": form})
 
 
-class MemberDetailView(View):
+class MemberDetailView(PermissionRequiredMixin, View):
+    permission_required = "member.view_member"
+
     def get(self, request, member_id):
         member = get_object_or_404(models.Member, pk=member_id)
         return render(request, "member/member_detail.html", {"member": member})
