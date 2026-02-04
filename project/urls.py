@@ -26,6 +26,9 @@ urlpatterns = [
     path("circulation/", include("apps.circulation.urls")),
     path("", include("apps.core.urls")),
     path("admin/", admin.site.urls),
+    # API
+    path("api/v1/", include("apps.member.api.urls")),
+    path("api-auth/", include("rest_framework.urls")),
 ]
 
 
