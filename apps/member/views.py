@@ -2,6 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views import View
+from django.contrib.auth.models import User
 from . import models
 from .forms import MemberCreateForm
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -35,4 +36,8 @@ class MemberDetailView(PermissionRequiredMixin, View):
 
     def get(self, request, member_id):
         member = get_object_or_404(models.Member, pk=member_id)
-        return render(request, "member/member_detail.html", {"member": member})
+        return render(
+            request,
+            "member/member_detail.html",
+            {"member": member},
+        )

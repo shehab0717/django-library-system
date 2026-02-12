@@ -13,8 +13,10 @@
          class="object-fit-contain" />
     <div class="d-flex align-items-center mb-5 mt-4">
       <h2>{{ author.name }}</h2>
-      <a href="{% url 'book:author_update' author.id %}"
-         class="btn btn-sm btn-outline-primary ms-4">Update</a>
+      {% if perms.book.add_author %}
+        <a href="{% url 'book:author_update' author.id %}"
+           class="btn btn-sm btn-outline-primary ms-4">Update</a>
+      {% endif %}
     </div>
     <div class="row">
       <div class="col-3 col-md-2 col-lg-1">

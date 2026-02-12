@@ -50,26 +50,29 @@
             </tr>
           </tbody>
         </table>
-        <div class="d-flex mt-5 justify-content-center bg-warning-subtle rounded p-3">
-          <a href="{% url 'book:book_update' book.isbn %}?next={% url 'book:book_detail' book.isbn %}"
-             class="btn btn-primary me-4">Update</a>
-          <button type="button"
-                  class="btn btn-outline-danger"
-                  data-bs-toggle="modal"
-                  data-bs-target="#deleteModal">Delete</button>
-        </div>
+        {% if perms.book.change_book %}
+          <div class="d-flex mt-5 justify-content-center bg-warning-subtle rounded p-3">
+            <a href="{% url 'book:book_update' book.isbn %}?next={% url 'book:book_detail' book.isbn %}"
+               class="btn btn-primary me-4">Update</a>
+            <button type="button"
+                    class="btn btn-outline-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#deleteModal">Delete</button>
+          </div>
+        {% endif %}
       </div>
     </div>
     <hr class="mt-5" />
     <h4 class="mt-5 mb-4">Book Copies</h4>
-    <div class="row p-3">
+    <div class="row p-3 d-flex justify-content-center">
       <div class="col-8 border border-dark rounded me-2 p-4">
         {% if book.copies.count %}
           <table class="table table-striped">
             <thead>
               <th>Copy Number</th>
               <th>Status</th>
-              <th>--</th>
+              {% if perms.circulation.add_circulationrecord %}<th>--</th>{% endif %}
+              {% if perms.book.delete_bookcopy %}<th>--</th>{% endif %}
             </thead>
             <tbody>
               {% for copy in book.copies.all %}
@@ -82,13 +85,24 @@
     class="fw-normal">{{ copy.borrower }}</a>
                     {% endif %}
                   </td>
-                  <td>
-                    {% if copy.is_available %}
-                      <a class="btn btn-sm btn-outline-warning"
-                         href="{% url 'circulation:borrowing_add' copy.id %}"
-                         target="_blank">Borrow</a>
-                    {% endif %}
-                  </td>
+                  {% if perms.circulation.add_circulationrecord %}
+                    <td>
+                      {% if copy.is_available %}
+                        <a class="btn btn-sm btn-outline-warning"
+                           href="{% url 'circulation:borrowing_add' copy.id %}"
+                           target="_blank">Borrow</a>
+                      {% endif %}
+                    </td>
+                  {% endif %}
+                  {% if perms.book.delete_bookcopy %}
+                    <td>
+                      <form action="{% url 'book:bookcopy_delete' copy.book.isbn copy.copy_number %}"
+                            method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Delete" class="btn btn-danger btn-sm">
+                      </form>
+                    </td>
+                  {% endif %}
                 </tr>
               {% endfor %}
             </tbody>
@@ -99,15 +113,17 @@
           </div>
         {% endif %}
       </div>
-      <div class="col p-4 rounded border border-dark">
-        <h4 class="mb-3 text-info-emphasis">Add Book Copy</h4>
-        <form action="{% url 'book:book_detail' book.isbn %}" method="post">
-          {% csrf_token %}
-          {{ book_copy_form.non_field_errors }}
-          {{ book_copy_form|crispy }}
-          <input type="submit" value="Add" class="btn btn-primary" />
-        </form>
-      </div>
+      {% if perms.book.add_bookcopy %}
+        <div class="col p-4 rounded border border-dark">
+          <h4 class="mb-3 text-info-emphasis">Add Book Copy</h4>
+          <form action="{% url 'book:book_detail' book.isbn %}" method="post">
+            {% csrf_token %}
+            {{ book_copy_form.non_field_errors }}
+            {{ book_copy_form|crispy }}
+            <input type="submit" value="Add" class="btn btn-primary" />
+          </form>
+        </div>
+      {% endif %}
     </div>
     <!-- Modal -->
     <div class="modal fade"

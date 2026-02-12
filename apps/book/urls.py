@@ -10,6 +10,11 @@ urlpatterns = [
     path("<int:book_isbn>/update/", views.UpdateBookView.as_view(), name="book_update"),
     path("<int:book_isbn>/delete/", views.DeleteBookView.as_view(), name="book_delete"),
     path("add/", views.AddBookView.as_view(), name="book_add"),
+    path(
+        "<int:book_isbn>/copy/<int:copy_number>/delete",
+        views.BookCopyDeleteView.as_view(),
+        name="bookcopy_delete",
+    ),
     # Authors
     path("author/", views.AuthorListView.as_view(), name="author_index"),
     path("author/add/", views.AuthorCreateView.as_view(), name="author_add"),
