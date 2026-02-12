@@ -55,7 +55,9 @@
               </div>
             </form>
           </div>
-          <a href="{% url 'book:book_add' %} " class="btn btn-primary">New Book</a>
+          {% if perms.book.add_book %}
+            <a href="{% url 'book:book_add' %} " class="btn btn-primary">New Book</a>
+          {% endif %}
         </div>
         <!-- Book List -->
         <table class="table table-striped">
