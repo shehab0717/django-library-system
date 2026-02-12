@@ -113,7 +113,7 @@
           </div>
         {% endif %}
       </div>
-      {% if perms.book.add_bookcopy or True %}
+      {% if perms.book.add_bookcopy %}
         <div class="col p-4 rounded border border-dark">
           <h4 class="mb-3 text-info-emphasis">Add Book Copy</h4>
           <form action="{% url 'book:book_detail' book.isbn %}" method="post">
