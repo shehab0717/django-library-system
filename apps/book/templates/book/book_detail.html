@@ -72,7 +72,7 @@
               <th>Copy Number</th>
               <th>Status</th>
               {% if perms.circulation.add_circulationrecord %}<th>--</th>{% endif %}
-              {% if perms.circulation.change_bookcopy %}<th>--</th>{% endif %}
+              {% if perms.book.delete_bookcopy %}<th>--</th>{% endif %}
             </thead>
             <tbody>
               {% for copy in book.copies.all %}
