@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.views import View
-from .models import Book, Author, BookImage, Genre
+from .models import Book, Author, BookCopy, BookImage, Genre
 from django.urls import reverse
 from . import forms
 from django.http import HttpResponseRedirect
@@ -219,6 +219,20 @@ class AuthorUpdateView(View):
             form.save()
             return HttpResponseRedirect(reverse("book:author_detail", args=[author_id]))
         return render(request, "book/author_update.html", {"form": form})
+
+
+class BookCopyDeleteView(PermissionRequiredMixin, View):
+    permission_required = "book.delete_bookcopy"
+
+    def post(self, request, book_isbn, copy_number):
+        book_copy = get_object_or_404(
+            BookCopy, book_id=book_isbn, copy_number=copy_number
+        )
+        next = request.GET.get(
+            "next", reverse("book:book_detail", args=[book_copy.book.isbn])
+        )
+        book_copy.delete()
+        return HttpResponseRedirect(next)
 
 
 # class BookListView(ListView):
