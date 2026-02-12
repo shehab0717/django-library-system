@@ -5,7 +5,7 @@
 {% block content %}
     <div class="container-lg">
         <div class="d-flex justify-content-end mt-5">
-            {% if perms.member_add %}
+            {% if perms.member.add_member %}
                 <a href="{% url 'member:member_add' %}" class="btn btn-primary">New member</a>
             {% endif %}
         </div>
