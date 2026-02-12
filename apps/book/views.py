@@ -8,9 +8,12 @@ from django.http import HttpResponseRedirect
 from django.db import IntegrityError
 from django.db.models import Q
 from django.forms import inlineformset_factory
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
-class BookListView(View):
+class BookListView(PermissionRequiredMixin, View):
+    permission_required = "book.view_book"
+
     def get(self, request):
         q = request.GET.get("q", "")
         all_books = Book.objects.filter(title__icontains=q).all()
@@ -51,7 +54,14 @@ class BookListView(View):
         return {"genres": genres, "authors": authors}
 
 
-class BookDetailView(View):
+class BookDetailView(PermissionRequiredMixin, View):
+    permission_required = "book.view_book"
+
+    def get_permission_required(self):
+        if self.request.method == "POST":
+            return ("book.add_bookcopy",)
+        return super().get_permission_required()
+
     def get(self, request, book_isbn):
         book = get_object_or_404(Book, pk=book_isbn)
         book_copy_form = forms.BookCopyCreateForm()
@@ -82,7 +92,8 @@ class BookDetailView(View):
             return HttpResponseRedirect(reverse("book:book_detail", args=[book_isbn]))
 
 
-class AddBookView(View):
+class AddBookView(PermissionRequiredMixin, View):
+    permission_required = "book.add_book"
     BookImageFormSet = inlineformset_factory(
         Book,
         BookImage,
@@ -117,7 +128,8 @@ class AddBookView(View):
         )
 
 
-class UpdateBookView(View):
+class UpdateBookView(PermissionRequiredMixin, View):
+    permission_required = "book.change_book"
     BookImageFormSet = inlineformset_factory(
         Book,
         BookImage,
@@ -164,14 +176,18 @@ class UpdateBookView(View):
         )
 
 
-class DeleteBookView(View):
+class DeleteBookView(PermissionRequiredMixin, View):
+    permission_required = "book.delete_book"
+
     def post(self, request, book_isbn):
         book = get_object_or_404(Book, pk=book_isbn)
         book.delete()
         return HttpResponseRedirect(reverse("book:book_index"))
 
 
-class AuthorListView(View):
+class AuthorListView(PermissionRequiredMixin, View):
+    permission_required = "book.view_author"
+
     def get(self, request):
         q = request.GET.get("q", "")
         list_view = request.GET.get("view", "grid")
@@ -184,7 +200,9 @@ class AuthorListView(View):
         )
 
 
-class AuthorCreateView(View):
+class AuthorCreateView(PermissionRequiredMixin, View):
+    permission_required = "book.add_author"
+
     def get(self, request):
         form = forms.AuthorCreateForm()
         return render(request, "book/author_add.html", {"form": form})
@@ -198,7 +216,9 @@ class AuthorCreateView(View):
         return render(request, "book/author_add.html", {"form": form})
 
 
-class AuthorDetailview(View):
+class AuthorDetailview(PermissionRequiredMixin, View):
+    permission_required = "book.view_author"
+
     def get(self, request, author_id):
         author = get_object_or_404(
             Author.objects.prefetch_related("books"), pk=author_id
@@ -206,7 +226,9 @@ class AuthorDetailview(View):
         return render(request, "book/author_detail.html", {"author": author})
 
 
-class AuthorUpdateView(View):
+class AuthorUpdateView(PermissionRequiredMixin, View):
+    permission_required = "book.change_author"
+
     def get(self, request, author_id):
         author = get_object_or_404(Author, pk=author_id)
         form = forms.AuthorUpdateForm(instance=author)
