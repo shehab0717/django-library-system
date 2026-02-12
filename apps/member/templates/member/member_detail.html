@@ -56,7 +56,7 @@
                                 {% if borrowing.is_returned %}- {{ borrowing.return_date | date }}{% endif %}
                             </td>
                             <td>
-                                {% if not borrowing.is_returned and perms.borrow_update %}
+                                {% if not borrowing.is_returned and perms.circulation.add_circulationrecord %}
                                     <form action="{% url 'circulation:borrowing_return' borrowing.id %}"
                                           method="post">
                                         {% csrf_token %}
