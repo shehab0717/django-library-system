@@ -41,7 +41,9 @@
           </button>
         </div>
       </form>
-      <a href="{% url 'book:author_add' %}" class="btn btn-primary">New Author</a>
+      {% if perms.book.add_author %}
+        <a href="{% url 'book:author_add' %}" class="btn btn-primary">New Author</a>
+      {% endif %}
     </div>
     {% if view == 'grid' %}
       <div class="row d-flex justify-content-start">
