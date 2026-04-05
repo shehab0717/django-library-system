@@ -1,0 +1,612 @@
+[
+  {
+    "model": "book.book",
+    "pk": 2001,
+    "fields": {
+      "created_at": "2026-04-05T20:15:22.351Z",
+      "updated_at": "2026-04-05T20:15:22.351Z",
+      "title": "The Midnight Library",
+      "cover_image": "book/book_cover.jfif",
+      "pub_year": 2020,
+      "genres": [2],
+      "authors": [2]
+    }
+  },
+  {
+    "model": "book.book",
+    "pk": 2002,
+    "fields": {
+      "created_at": "2026-04-05T20:16:45.123Z",
+      "updated_at": "2026-04-05T20:16:45.123Z",
+      "title": "Dune: Messiah",
+      "cover_image": "book/book_cover.jfif",
+      "pub_year": 1969,
+      "genres": [3, 4],
+      "authors": [3]
+    }
+  },
+  {
+    "model": "book.book",
+    "pk": 2003,
+    "fields": {
+      "created_at": "2026-04-05T20:18:12.567Z",
+      "updated_at": "2026-04-05T20:18:12.567Z",
+      "title": "Becoming",
+      "cover_image": "book/book_cover.jfif",
+      "pub_year": 2018,
+      "genres": [5],
+      "authors": [4]
+    }
+  },
+  {
+    "model": "book.book",
+    "pk": 2004,
+    "fields": {
+      "created_at": "2026-04-05T20:19:34.789Z",
+      "updated_at": "2026-04-05T20:19:34.789Z",
+      "title": "The Hobbit",
+      "cover_image": "book/book_cover.jfif",
+      "pub_year": 1937,
+      "genres": [3],
+      "authors": [5]
+    }
+  },
+  {
+    "model": "book.book",
+    "pk": 2005,
+    "fields": {
+      "created_at": "2026-04-05T21:05:00.000Z",
+      "updated_at": "2026-04-05T21:05:00.000Z",
+      "title": "The Shining",
+      "cover_image": "book/book_cover.jfif",
+      "pub_year": 1977,
+      "genres": [2, 4],
+      "authors": [6]
+    }
+  },
+  {
+    "model": "book.book",
+    "pk": 2006,
+    "fields": {
+      "created_at": "2026-04-05T21:06:00.000Z",
+      "updated_at": "2026-04-05T21:06:00.000Z",
+      "title": "Pride and Prejudice",
+      "cover_image": "book/book_cover.jfif",
+      "pub_year": 1813,
+      "genres": [2, 5],
+      "authors": [7]
+    }
+  },
+  {
+    "model": "book.book",
+    "pk": 2007,
+    "fields": {
+      "created_at": "2026-04-05T21:07:00.000Z",
+      "updated_at": "2026-04-05T21:07:00.000Z",
+      "title": "Norwegian Wood",
+      "cover_image": "book/book_cover.jfif",
+      "pub_year": 1987,
+      "genres": [2, 5],
+      "authors": [8]
+    }
+  },
+  {
+    "model": "book.book",
+    "pk": 2008,
+    "fields": {
+      "created_at": "2026-04-05T21:08:00.000Z",
+      "updated_at": "2026-04-05T21:08:00.000Z",
+      "title": "Murder on the Orient Express",
+      "cover_image": "book/book_cover.jfif",
+      "pub_year": 1934,
+      "genres": [6],
+      "authors": [9]
+    }
+  },
+  {
+    "model": "book.book",
+    "pk": 2009,
+    "fields": {
+      "created_at": "2026-04-05T21:09:00.000Z",
+      "updated_at": "2026-04-05T21:09:00.000Z",
+      "title": "Americanah",
+      "cover_image": "book/book_cover.jfif",
+      "pub_year": 2013,
+      "genres": [2, 5],
+      "authors": [10]
+    }
+  },
+  {
+    "model": "book.book",
+    "pk": 2010,
+    "fields": {
+      "created_at": "2026-04-05T21:10:00.000Z",
+      "updated_at": "2026-04-05T21:10:00.000Z",
+      "title": "It",
+      "cover_image": "book/book_cover.jfif",
+      "pub_year": 1986,
+      "genres": [2, 4],
+      "authors": [6]
+    }
+  },
+  {
+    "model": "book.book",
+    "pk": 2011,
+    "fields": {
+      "created_at": "2026-04-05T21:11:00.000Z",
+      "updated_at": "2026-04-05T21:11:00.000Z",
+      "title": "Sense and Sensibility",
+      "cover_image": "book/book_cover.jfif",
+      "pub_year": 1811,
+      "genres": [2, 5],
+      "authors": [7]
+    }
+  },
+  {
+    "model": "book.book",
+    "pk": 2012,
+    "fields": {
+      "created_at": "2026-04-05T21:12:00.000Z",
+      "updated_at": "2026-04-05T21:12:00.000Z",
+      "title": "Kafka on the Shore",
+      "cover_image": "book/book_cover.jfif",
+      "pub_year": 2002,
+      "genres": [2, 3, 4],
+      "authors": [8]
+    }
+  },
+  {
+    "model": "book.book",
+    "pk": 2013,
+    "fields": {
+      "created_at": "2026-04-05T21:13:00.000Z",
+      "updated_at": "2026-04-05T21:13:00.000Z",
+      "title": "The Murder of Roger Ackroyd",
+      "cover_image": "book/book_cover.jfif",
+      "pub_year": 1926,
+      "genres": [6],
+      "authors": [9]
+    }
+  },
+  {
+    "model": "book.book",
+    "pk": 2014,
+    "fields": {
+      "created_at": "2026-04-05T21:14:00.000Z",
+      "updated_at": "2026-04-05T21:14:00.000Z",
+      "title": "Half of a Yellow Sun",
+      "cover_image": "book/book_cover.jfif",
+      "pub_year": 2006,
+      "genres": [2, 5],
+      "authors": [10]
+    }
+  },
+  {
+    "model": "book.bookcopy",
+    "pk": 2,
+    "fields": {
+      "created_at": "2026-04-05T20:20:15.234Z",
+      "updated_at": "2026-04-05T20:20:15.234Z",
+      "copy_number": 1,
+      "status": "available",
+      "book": 2001
+    }
+  },
+  {
+    "model": "book.bookcopy",
+    "pk": 3,
+    "fields": {
+      "created_at": "2026-04-05T20:21:26.345Z",
+      "updated_at": "2026-04-05T20:21:26.345Z",
+      "copy_number": 2,
+      "status": "available",
+      "book": 2001
+    }
+  },
+  {
+    "model": "book.bookcopy",
+    "pk": 4,
+    "fields": {
+      "created_at": "2026-04-05T20:22:37.456Z",
+      "updated_at": "2026-04-05T20:22:37.456Z",
+      "copy_number": 1,
+      "status": "available",
+      "book": 2002
+    }
+  },
+  {
+    "model": "book.bookcopy",
+    "pk": 5,
+    "fields": {
+      "created_at": "2026-04-05T20:23:48.567Z",
+      "updated_at": "2026-04-05T20:23:48.567Z",
+      "copy_number": 1,
+      "status": "reserved",
+      "book": 2003
+    }
+  },
+  {
+    "model": "book.bookcopy",
+    "pk": 6,
+    "fields": {
+      "created_at": "2026-04-05T20:24:59.678Z",
+      "updated_at": "2026-04-05T20:24:59.678Z",
+      "copy_number": 1,
+      "status": "available",
+      "book": 2004
+    }
+  },
+  {
+    "model": "book.bookcopy",
+    "pk": 7,
+    "fields": {
+      "created_at": "2026-04-05T21:15:00.000Z",
+      "updated_at": "2026-04-05T21:15:00.000Z",
+      "copy_number": 1,
+      "status": "available",
+      "book": 2005
+    }
+  },
+  {
+    "model": "book.bookcopy",
+    "pk": 8,
+    "fields": {
+      "created_at": "2026-04-05T21:16:00.000Z",
+      "updated_at": "2026-04-05T21:16:00.000Z",
+      "copy_number": 1,
+      "status": "available",
+      "book": 2006
+    }
+  },
+  {
+    "model": "book.bookcopy",
+    "pk": 9,
+    "fields": {
+      "created_at": "2026-04-05T21:17:00.000Z",
+      "updated_at": "2026-04-05T21:17:00.000Z",
+      "copy_number": 1,
+      "status": "borrowed",
+      "book": 2007
+    }
+  },
+  {
+    "model": "book.bookcopy",
+    "pk": 10,
+    "fields": {
+      "created_at": "2026-04-05T21:18:00.000Z",
+      "updated_at": "2026-04-05T21:18:00.000Z",
+      "copy_number": 1,
+      "status": "available",
+      "book": 2008
+    }
+  },
+  {
+    "model": "book.bookcopy",
+    "pk": 11,
+    "fields": {
+      "created_at": "2026-04-05T21:19:00.000Z",
+      "updated_at": "2026-04-05T21:19:00.000Z",
+      "copy_number": 1,
+      "status": "reserved",
+      "book": 2009
+    }
+  },
+  {
+    "model": "book.bookcopy",
+    "pk": 12,
+    "fields": {
+      "created_at": "2026-04-05T21:20:00.000Z",
+      "updated_at": "2026-04-05T21:20:00.000Z",
+      "copy_number": 2,
+      "status": "available",
+      "book": 2009
+    }
+  },
+  {
+    "model": "book.bookcopy",
+    "pk": 13,
+    "fields": {
+      "created_at": "2026-04-05T21:21:00.000Z",
+      "updated_at": "2026-04-05T21:21:00.000Z",
+      "copy_number": 1,
+      "status": "available",
+      "book": 2010
+    }
+  },
+  {
+    "model": "book.bookcopy",
+    "pk": 14,
+    "fields": {
+      "created_at": "2026-04-05T21:22:00.000Z",
+      "updated_at": "2026-04-05T21:22:00.000Z",
+      "copy_number": 1,
+      "status": "available",
+      "book": 2011
+    }
+  },
+  {
+    "model": "book.bookcopy",
+    "pk": 15,
+    "fields": {
+      "created_at": "2026-04-05T21:23:00.000Z",
+      "updated_at": "2026-04-05T21:23:00.000Z",
+      "copy_number": 1,
+      "status": "borrowed",
+      "book": 2012
+    }
+  },
+  {
+    "model": "book.bookcopy",
+    "pk": 16,
+    "fields": {
+      "created_at": "2026-04-05T21:24:00.000Z",
+      "updated_at": "2026-04-05T21:24:00.000Z",
+      "copy_number": 1,
+      "status": "available",
+      "book": 2013
+    }
+  },
+  {
+    "model": "book.bookcopy",
+    "pk": 17,
+    "fields": {
+      "created_at": "2026-04-05T21:25:00.000Z",
+      "updated_at": "2026-04-05T21:25:00.000Z",
+      "copy_number": 1,
+      "status": "available",
+      "book": 2014
+    }
+  },
+  {
+    "model": "book.bookcopy",
+    "pk": 18,
+    "fields": {
+      "created_at": "2026-04-05T21:26:00.000Z",
+      "updated_at": "2026-04-05T21:26:00.000Z",
+      "copy_number": 2,
+      "status": "available",
+      "book": 2014
+    }
+  },
+  {
+    "model": "book.genre",
+    "pk": 2,
+    "fields": {
+      "created_at": "2026-04-05T20:25:10.789Z",
+      "updated_at": "2026-04-05T20:25:10.789Z",
+      "name": "Fiction"
+    }
+  },
+  {
+    "model": "book.genre",
+    "pk": 3,
+    "fields": {
+      "created_at": "2026-04-05T20:26:21.890Z",
+      "updated_at": "2026-04-05T20:26:21.890Z",
+      "name": "Science Fiction"
+    }
+  },
+  {
+    "model": "book.genre",
+    "pk": 4,
+    "fields": {
+      "created_at": "2026-04-05T20:27:32.901Z",
+      "updated_at": "2026-04-05T20:27:32.901Z",
+      "name": "Fantasy"
+    }
+  },
+  {
+    "model": "book.genre",
+    "pk": 5,
+    "fields": {
+      "created_at": "2026-04-05T20:28:43.012Z",
+      "updated_at": "2026-04-05T20:28:43.012Z",
+      "name": "Biography"
+    }
+  },
+  {
+    "model": "book.genre",
+    "pk": 6,
+    "fields": {
+      "created_at": "2026-04-05T21:27:00.000Z",
+      "updated_at": "2026-04-05T21:27:00.000Z",
+      "name": "Mystery"
+    }
+  },
+  {
+    "model": "book.author",
+    "pk": 2,
+    "fields": {
+      "created_at": "2026-04-05T20:29:54.123Z",
+      "updated_at": "2026-04-05T20:29:54.123Z",
+      "image": "author/author_avatar.png",
+      "name": "Matt Haig",
+      "bio": "British author and journalist who writes fiction and non-fiction for children and adults.",
+      "nationality": "British",
+      "birth_date": "1975-07-03",
+      "death_date": null
+    }
+  },
+  {
+    "model": "book.author",
+    "pk": 3,
+    "fields": {
+      "created_at": "2026-04-05T20:31:05.234Z",
+      "updated_at": "2026-04-05T20:31:05.234Z",
+      "image": "author/author_avatar.png",
+      "name": "Frank Herbert",
+      "bio": "American science fiction author best known for the novel Dune and its five sequels.",
+      "nationality": "American",
+      "birth_date": "1920-10-08",
+      "death_date": "1986-02-11"
+    }
+  },
+  {
+    "model": "book.author",
+    "pk": 4,
+    "fields": {
+      "created_at": "2026-04-05T20:32:16.345Z",
+      "updated_at": "2026-04-05T20:32:16.345Z",
+      "image": "author/author_avatar.png",
+      "name": "Michelle Obama",
+      "bio": "American attorney, author, and former First Lady of the United States.",
+      "nationality": "American",
+      "birth_date": "1964-01-17",
+      "death_date": null
+    }
+  },
+  {
+    "model": "book.author",
+    "pk": 5,
+    "fields": {
+      "created_at": "2026-04-05T20:33:27.456Z",
+      "updated_at": "2026-04-05T20:33:27.456Z",
+      "image": "author/author_avatar.png",
+      "name": "J.R.R. Tolkien",
+      "bio": "English writer, poet, philologist, and academic, best known as the author of The Hobbit and The Lord of the Rings.",
+      "nationality": "British",
+      "birth_date": "1892-01-03",
+      "death_date": "1973-09-02"
+    }
+  },
+  {
+    "model": "book.author",
+    "pk": 6,
+    "fields": {
+      "created_at": "2026-04-05T21:00:00.000Z",
+      "updated_at": "2026-04-05T21:00:00.000Z",
+      "image": "author/author_avatar.png",
+      "name": "Stephen King",
+      "bio": "American author of horror, supernatural fiction, suspense, crime, science-fiction, and fantasy novels.",
+      "nationality": "American",
+      "birth_date": "1947-09-21",
+      "death_date": null
+    }
+  },
+  {
+    "model": "book.author",
+    "pk": 7,
+    "fields": {
+      "created_at": "2026-04-05T21:01:00.000Z",
+      "updated_at": "2026-04-05T21:01:00.000Z",
+      "image": "author/author_avatar.png",
+      "name": "Jane Austen",
+      "bio": "English novelist known primarily for her six major novels, which interpret, critique and comment upon the British landed gentry at the end of the 18th century.",
+      "nationality": "British",
+      "birth_date": "1775-12-16",
+      "death_date": "1817-07-18"
+    }
+  },
+  {
+    "model": "book.author",
+    "pk": 8,
+    "fields": {
+      "created_at": "2026-04-05T21:02:00.000Z",
+      "updated_at": "2026-04-05T21:02:00.000Z",
+      "image": "author/author_avatar.png",
+      "name": "Haruki Murakami",
+      "bio": "Japanese writer whose novels, essays, and short stories have become bestsellers internationally.",
+      "nationality": "Japanese",
+      "birth_date": "1949-01-12",
+      "death_date": null
+    }
+  },
+  {
+    "model": "book.author",
+    "pk": 9,
+    "fields": {
+      "created_at": "2026-04-05T21:03:00.000Z",
+      "updated_at": "2026-04-05T21:03:00.000Z",
+      "image": "author/author_avatar.png",
+      "name": "Agatha Christie",
+      "bio": "English writer known for her 66 detective novels and 14 short story collections.",
+      "nationality": "British",
+      "birth_date": "1890-09-15",
+      "death_date": "1976-01-12"
+    }
+  },
+  {
+    "model": "book.author",
+    "pk": 10,
+    "fields": {
+      "created_at": "2026-04-05T21:04:00.000Z",
+      "updated_at": "2026-04-05T21:04:00.000Z",
+      "image": "author/author_avatar.png",
+      "name": "Chimamanda Ngozi Adichie",
+      "bio": "Nigerian writer of novels, short stories, and nonfiction.",
+      "nationality": "Nigerian",
+      "birth_date": "1977-09-15",
+      "death_date": null
+    }
+  },
+  {
+    "model": "member.member",
+    "pk": 2,
+    "fields": {
+      "created_at": "2026-04-05T20:34:38.567Z",
+      "updated_at": "2026-04-05T20:34:38.567Z",
+      "name": "Sara Mahmoud",
+      "phone_number": "+201155678901",
+      "email": "sara.mahmoud@email.com",
+      "membership": 2,
+      "status": "active"
+    }
+  },
+  {
+    "model": "member.member",
+    "pk": 3,
+    "fields": {
+      "created_at": "2026-04-05T20:35:49.678Z",
+      "updated_at": "2026-04-05T20:35:49.678Z",
+      "name": "Omar Hassan",
+      "phone_number": "+201277890123",
+      "email": "omar.hassan@email.com",
+      "membership": 1,
+      "status": "active"
+    }
+  },
+  {
+    "model": "member.member",
+    "pk": 4,
+    "fields": {
+      "created_at": "2026-04-05T20:37:00.789Z",
+      "updated_at": "2026-04-05T20:37:00.789Z",
+      "name": "Layla Ibrahim",
+      "phone_number": "+201388901234",
+      "email": "layla.ibrahim@email.com",
+      "membership": 3,
+      "status": "suspended"
+    }
+  },
+  {
+    "model": "member.member",
+    "pk": 5,
+    "fields": {
+      "created_at": "2026-04-05T20:38:11.890Z",
+      "updated_at": "2026-04-05T20:38:11.890Z",
+      "name": "Khaled Mohamed",
+      "phone_number": "+201499012345",
+      "email": "khaled.mohamed@email.com",
+      "membership": 2,
+      "status": "active"
+    }
+  },
+  {
+    "model": "member.membership",
+    "pk": 2,
+    "fields": {
+      "created_at": "2026-04-05T20:39:22.901Z",
+      "updated_at": "2026-04-05T20:39:22.901Z",
+      "name": "Silver"
+    }
+  },
+  {
+    "model": "member.membership",
+    "pk": 3,
+    "fields": {
+      "created_at": "2026-04-05T20:40:33.012Z",
+      "updated_at": "2026-04-05T20:40:33.012Z",
+      "name": "Bronze"
+    }
+  }
+]
